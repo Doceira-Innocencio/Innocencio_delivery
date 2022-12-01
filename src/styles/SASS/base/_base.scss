@@ -1,0 +1,12 @@
+*,
+*::after,
+*::before{
+    margin:0;
+    padding:0;
+    box-sizing: inherit;
+    -webkit-top-highlight-color:transparent;
+}
+
+html{
+    font-size: 62.5%;
+}
