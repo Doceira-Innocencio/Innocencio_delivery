@@ -7,60 +7,24 @@ button {
   font-family: inherit;
   background-color: transparent; }
 
-.form__group:not(:last-child) {
-  margin-bottom: 2rem; }
-
-.form__label {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-left: 2rem;
-  margin-top: 0.7rem;
-  display: block;
-  transition: all 0.3s; }
-
-.form__input:placeholder-shown + .form__label {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-4rem); }
-
-.form__radio-group {
-  width: 49%;
-  display: inline-block; }
-
-.form__radio-input {
-  display: none; }
-
-.form__radio-label {
-  font-size: 2rem;
-  cursor: pointer;
-  position: relative;
-  padding-left: 4.5rem; }
-
-.form__radio-button {
-  height: 3rem;
-  width: 3rem;
-  border: 5px solid var(--brand-color);
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: -0.4rem; }
-  .form__radio-button::after {
-    content: "";
-    display: block;
-    height: 1.3rem;
-    width: 1.3rem;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--brand-color);
-    opacity: 0;
-    transition: opacity 0.2s; }
-
-.form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
-  opacity: 1; }
+.form__group {
+  display: flex;
+  gap: 3rem; }
+  .form__group .form__radio-group {
+    display: inline-block; }
+    .form__group .form__radio-group .form__radio-input {
+      display: none; }
+    .form__group .form__radio-group .form__radio-label {
+      font-size: 2rem;
+      cursor: pointer;
+      position: relative; }
+    .form__group .form__radio-group .form__radio-button {
+      padding: 1rem 4rem;
+      border: 3px solid black;
+      display: inline-block;
+      transition: all 0.3s; }
+    .form__group .form__radio-group .form__radio-input:checked ~ .form__radio-label .form__radio-button {
+      border-color: var(--brand-color); }
 
 *,
 *::after,
@@ -94,6 +58,15 @@ a {
 body {
   font-family: "EB Garamond";
   font-weight: 500; }
+
+.unidadeSection {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 7rem; }
+  .unidadeSection h1 {
+    font-size: 3.5rem;
+    font-weight: 400; }
 
 header {
   width: 100%;
