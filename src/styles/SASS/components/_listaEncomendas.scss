@@ -1,0 +1,66 @@
+.listaEncomendas {
+  position: relative;
+  width: 35rem;
+  min-height: 20rem;
+  max-height: 25rem;
+  font-size: 2rem;
+  border: solid 1px black;
+  padding: 1rem;
+  overflow: auto;
+
+  .content {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .encomenda {
+      transition: all 0.3s;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+
+      .encomenda_info {
+        display: flex;
+        flex-direction: column;
+
+        span:first-child {
+          margin-left: 0rem;
+        }
+
+        span:last-child {
+          margin-right: 0rem;
+        }
+      }
+
+      span:first-child {
+        margin-left: 2rem;
+      }
+
+      span:last-child {
+        margin-right: 2rem;
+      }
+
+      &:hover {
+        background-color: var(--accent-hover-color);
+      }
+    }
+  }
+
+  .notContent {
+    top: 30%;
+    position: absolute;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+}

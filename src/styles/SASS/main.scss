@@ -2,6 +2,9 @@
 
 @import "components/button";
 @import "components/options";
+@import "components/calendario";
+@import "components/listaEncomendas";
+@import "components/fichaEncomenda";
 
 @import "base/animations";
 @import "base/base";
@@ -9,5 +12,6 @@
 
 @import "layout/unidade";
 @import "layout/header";
+@import "layout/buscaEncomenda";
 
 @import "pages/index";

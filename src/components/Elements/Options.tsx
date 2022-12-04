@@ -25,12 +25,15 @@ export default function Options({ name, options }: OptionsProps) {
   return (
     <div className="form__group">
       {options.map((option, index) => (
-        <div className="form__radio-group">
+        <div key={Math.random()} className="form__radio-group">
           <input
             type="radio"
             className="form__radio-input"
             name={name}
             checked={optionsChecked[index]}
+            onChange={() => {
+              return;
+            }}
           />
           <label
             onClick={() => handleOptionSelect(index)}

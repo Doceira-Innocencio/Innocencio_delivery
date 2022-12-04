@@ -1,15 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
   return (
     <header>
       <div className="header_homeRefs">
-        <Image
-          width={20}
-          height={20}
+        <img
           className="header_logo"
-          src={"/public/logo.jpg"}
+          src="/img/logo.jpg"
           alt="logo doceira innocêncio"
         />
         <h3>{new Date().toDateString()}</h3>

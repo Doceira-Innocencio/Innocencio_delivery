@@ -1,124 +1,6 @@
-:root {
-  --brand-color: rgba(230, 128, 8, 1);
-  --accent-color: rgba(1, 137, 211, 1);
-  --accent-hover-color: rgb(136, 200, 234); }
-
-button {
-  border: none;
-  font-family: inherit;
-  background-color: transparent; }
-
-.form__group {
-  display: flex;
-  gap: 3rem; }
-  .form__group .form__radio-group {
-    display: inline-block; }
-    .form__group .form__radio-group .form__radio-input {
-      display: none; }
-    .form__group .form__radio-group .form__radio-label {
-      font-size: 2rem;
-      cursor: pointer;
-      position: relative; }
-    .form__group .form__radio-group .form__radio-button {
-      padding: 1rem 4rem;
-      border: 3px solid black;
-      display: inline-block;
-      transition: all 0.3s; }
-    .form__group .form__radio-group .form__radio-input:checked ~ .form__radio-label .form__radio-button {
-      border-color: var(--brand-color); }
-
-.react-calendar {
-  max-width: 30rem; }
-  .react-calendar abbr {
-    font-size: 2rem; }
-  .react-calendar button {
-    border-radius: 70px;
-    transition: all 0.3s; }
-    .react-calendar button:hover {
-      background-color: #88c8ea; }
-  .react-calendar__tile--now {
-    background-color: var(--brand-color); }
-    .react-calendar__tile--now abbr {
-      color: white; }
-  .react-calendar__tile--active {
-    background-color: var(--accent-color); }
-    .react-calendar__tile--active abbr {
-      color: white; }
-  .react-calendar__navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem; }
-    .react-calendar__navigation button {
-      font-size: 3rem; }
-  .react-calendar__viewContainer .react-calendar__month-view__weekdays {
-    font-size: 2rem;
-    margin-bottom: 2rem; }
-    .react-calendar__viewContainer .react-calendar__month-view__weekdays__weekday {
-      display: flex;
-      align-items: center;
-      justify-content: center; }
-  .react-calendar__viewContainer .react-calendar__month-view__days__day.fechado abbr {
-    color: rgba(255, 0, 255, 0.5); }
-  .react-calendar__viewContainer .react-calendar__month-view__days__day.spot {
-    position: relative; }
-    .react-calendar__viewContainer .react-calendar__month-view__days__day.spot::after {
-      position: absolute;
-      top: 20%;
-      right: 10%;
-      content: "";
-      background-color: black;
-      padding: 0.3rem;
-      border-radius: 50%; }
-  .react-calendar__viewContainer .react-calendar__month-view__days__day--neighboringMonth {
-    color: #ced4da; }
-
-.listaEncomendas {
-  position: relative;
-  width: 35rem;
-  min-height: 20rem;
-  max-height: 25rem;
-  font-size: 2rem;
-  border: solid 1px black;
-  padding: 1rem;
-  overflow: auto; }
-  .listaEncomendas .content {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column; }
-    .listaEncomendas .content .encomenda {
-      transition: all 0.3s;
-      cursor: pointer;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem; }
-      .listaEncomendas .content .encomenda .encomenda_info {
-        display: flex;
-        flex-direction: column; }
-        .listaEncomendas .content .encomenda .encomenda_info span:first-child {
-          margin-left: 0rem; }
-        .listaEncomendas .content .encomenda .encomenda_info span:last-child {
-          margin-right: 0rem; }
-      .listaEncomendas .content .encomenda span:first-child {
-        margin-left: 2rem; }
-      .listaEncomendas .content .encomenda span:last-child {
-        margin-right: 2rem; }
-      .listaEncomendas .content .encomenda:hover {
-        background-color: var(--accent-hover-color); }
-  .listaEncomendas .notContent {
-    top: 30%;
-    position: absolute;
-    justify-self: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem; }
-    .listaEncomendas .notContent h1 {
-      font-size: 2rem; }
-
 .ficha {
-  transform: scale(0.85); }
+  transform: scale(0.85);
+}
 
 .xl157123 {
   padding: 0px;
@@ -135,8 +17,8 @@ button {
   vertical-align: bottom;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl637123 {
   padding: 0px;
   mso-ignore: padding;
@@ -156,8 +38,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl647123 {
   padding: 0px;
   mso-ignore: padding;
@@ -174,8 +56,8 @@ button {
   border: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl657123 {
   padding: 0px;
   mso-ignore: padding;
@@ -192,8 +74,8 @@ button {
   border: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl667123 {
   padding: 0px;
   mso-ignore: padding;
@@ -210,8 +92,8 @@ button {
   border: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl677123 {
   padding: 0px;
   mso-ignore: padding;
@@ -231,8 +113,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl687123 {
   padding: 0px;
   mso-ignore: padding;
@@ -249,8 +131,8 @@ button {
   border: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl697123 {
   padding: 0px;
   mso-ignore: padding;
@@ -270,8 +152,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl707123 {
   padding: 0px;
   mso-ignore: padding;
@@ -291,8 +173,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl717123 {
   padding: 0px;
   mso-ignore: padding;
@@ -312,8 +194,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl727123 {
   padding: 0px;
   mso-ignore: padding;
@@ -333,8 +215,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl737123 {
   padding: 0px;
   mso-ignore: padding;
@@ -354,8 +236,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl747123 {
   padding: 0px;
   mso-ignore: padding;
@@ -375,8 +257,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl757123 {
   padding: 0px;
   mso-ignore: padding;
@@ -396,8 +278,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl767123 {
   padding: 0px;
   mso-ignore: padding;
@@ -417,8 +299,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl777123 {
   padding: 0px;
   mso-ignore: padding;
@@ -438,8 +320,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl787123 {
   padding: 0px;
   mso-ignore: padding;
@@ -459,8 +341,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl797123 {
   padding: 0px;
   mso-ignore: padding;
@@ -480,8 +362,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl807123 {
   padding: 0px;
   mso-ignore: padding;
@@ -501,8 +383,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl817123 {
   padding: 0px;
   mso-ignore: padding;
@@ -522,8 +404,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl827123 {
   padding: 0px;
   mso-ignore: padding;
@@ -543,8 +425,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl837123 {
   padding: 0px;
   mso-ignore: padding;
@@ -564,8 +446,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl847123 {
   padding: 0px;
   mso-ignore: padding;
@@ -585,8 +467,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl857123 {
   padding: 0px;
   mso-ignore: padding;
@@ -606,8 +488,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl867123 {
   padding: 0px;
   mso-ignore: padding;
@@ -627,8 +509,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl877123 {
   padding: 0px;
   mso-ignore: padding;
@@ -648,8 +530,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl887123 {
   padding: 0px;
   mso-ignore: padding;
@@ -669,8 +551,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl897123 {
   padding: 0px;
   mso-ignore: padding;
@@ -690,8 +572,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl907123 {
   padding: 0px;
   mso-ignore: padding;
@@ -711,8 +593,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl917123 {
   padding: 0px;
   mso-ignore: padding;
@@ -732,8 +614,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl927123 {
   padding: 0px;
   mso-ignore: padding;
@@ -753,8 +635,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl937123 {
   padding: 0px;
   mso-ignore: padding;
@@ -775,8 +657,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl947123 {
   padding: 0px;
   mso-ignore: padding;
@@ -797,8 +679,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl957123 {
   padding: 0px;
   mso-ignore: padding;
@@ -819,8 +701,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl967123 {
   padding: 0px;
   mso-ignore: padding;
@@ -841,8 +723,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl977123 {
   padding: 0px;
   mso-ignore: padding;
@@ -863,8 +745,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl987123 {
   padding: 0px;
   mso-ignore: padding;
@@ -885,8 +767,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl997123 {
   padding: 0px;
   mso-ignore: padding;
@@ -907,8 +789,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1007123 {
   padding: 0px;
   mso-ignore: padding;
@@ -928,8 +810,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1017123 {
   padding: 0px;
   mso-ignore: padding;
@@ -945,8 +827,8 @@ button {
   vertical-align: bottom;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1027123 {
   padding: 0px;
   mso-ignore: padding;
@@ -966,8 +848,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1037123 {
   padding: 0px;
   mso-ignore: padding;
@@ -983,8 +865,8 @@ button {
   vertical-align: bottom;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1047123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1004,8 +886,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1057123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1025,8 +907,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1067123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1046,8 +928,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1077123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1067,8 +949,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1087123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1088,8 +970,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1097123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1109,8 +991,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1107123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1130,8 +1012,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1117123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1151,8 +1033,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1127123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1172,8 +1054,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1137123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1193,8 +1075,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1147123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1214,8 +1096,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1157123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1235,8 +1117,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1167123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1256,8 +1138,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1177123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1277,8 +1159,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1187123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1298,8 +1180,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1197123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1319,8 +1201,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1207123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1340,8 +1222,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1217123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1361,8 +1243,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1227123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1382,8 +1264,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1237123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1403,8 +1285,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1247123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1424,8 +1306,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1257123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1445,8 +1327,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1267123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1466,8 +1348,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1277123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1487,8 +1369,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1287123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1508,8 +1390,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1297123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1529,8 +1411,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1307123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1546,8 +1428,8 @@ button {
   vertical-align: top;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1317123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1567,8 +1449,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1327123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1588,8 +1470,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1337123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1609,8 +1491,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: normal; }
-
+  white-space: normal;
+}
 .xl1347123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1630,8 +1512,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1357123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1647,8 +1529,8 @@ button {
   vertical-align: top;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1367123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1668,8 +1550,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1377123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1689,8 +1571,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1387123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1710,8 +1592,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1397123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1731,8 +1613,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1407123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1752,8 +1634,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1417123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1773,8 +1655,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1427123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1794,8 +1676,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1437123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1815,8 +1697,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1447123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1836,8 +1718,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1457123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1857,8 +1739,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1467123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1878,8 +1760,8 @@ button {
   border-left: 1pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1477123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1899,8 +1781,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1487123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1920,8 +1802,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1497123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1941,8 +1823,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1507123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1962,8 +1844,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1517123 {
   padding: 0px;
   mso-ignore: padding;
@@ -1983,8 +1865,8 @@ button {
   border-left: 1pt solid windowtext;
   background: white;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1527123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2004,8 +1886,8 @@ button {
   border-left: none;
   background: white;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1537123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2025,8 +1907,8 @@ button {
   border-left: 0.5pt solid windowtext;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1547123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2046,8 +1928,8 @@ button {
   border-left: none;
   mso-background-source: auto;
   mso-pattern: auto;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1557123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2067,8 +1949,8 @@ button {
   border-left: 1pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1567123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2088,8 +1970,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1577123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2109,8 +1991,8 @@ button {
   border-left: 0.5pt solid windowtext;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1587123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2130,8 +2012,8 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .xl1597123 {
   padding: 0px;
   mso-ignore: padding;
@@ -2151,97 +2033,5 @@ button {
   border-left: none;
   background: #d9d9d9;
   mso-pattern: black none;
-  white-space: nowrap; }
-
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-  -webkit-top-highlight-color: transparent; }
-
-html {
-  font-size: 62.5%; }
-
-main {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-
-.content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%; }
-
-::-webkit-scrollbar {
-  width: 8px;
-  background-color: #dee2e6; }
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color);
-  border-radius: 30px; }
-
-::-webkit-scrollbar-thumb {
-  background-color: black;
-  border-radius: 30px; }
-
-a {
-  text-decoration: none;
-  color: inherit; }
-
-body {
-  font-family: "EB Garamond";
-  font-weight: 500; }
-
-.unidadeSection {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 7rem; }
-  .unidadeSection h1 {
-    font-size: 3.5rem;
-    font-weight: 400; }
-
-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: black;
-  color: white;
-  font-size: 2rem;
-  padding: 3rem 0; }
-  header img {
-    margin-right: 2rem; }
-  header .header_homeRefs {
-    margin-left: 5rem;
-    display: flex;
-    align-items: center; }
-    header .header_homeRefs .header_logo {
-      width: 10rem; }
-  header .header_modulos {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    margin-right: 5rem; }
-    header .header_modulos .selected {
-      position: relative; }
-      header .header_modulos .selected::after {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 115%;
-        content: "";
-        padding-top: 2px;
-        background-color: var(--brand-color); }
-
-.buscaEncomendas {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20rem; }
+  white-space: nowrap;
+}

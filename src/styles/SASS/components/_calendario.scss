@@ -1,0 +1,85 @@
+.react-calendar {
+  max-width: 30rem;
+
+  abbr {
+    font-size: 2rem;
+  }
+
+  button {
+    border-radius: 70px;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: rgb(136, 200, 234);
+    }
+  }
+
+  &__tile {
+    &--now {
+      background-color: var(--brand-color);
+      abbr {
+        color: white;
+      }
+    }
+
+    &--active {
+      background-color: var(--accent-color);
+      abbr {
+        color: white;
+      }
+    }
+  }
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    button {
+      font-size: 3rem;
+    }
+  }
+
+  &__viewContainer {
+    .react-calendar {
+      &__month-view {
+        &__weekdays {
+          font-size: 2rem;
+          margin-bottom: 2rem;
+          &__weekday {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
+        &__days {
+          &__day {
+            &.fechado {
+              abbr {
+                color: rgba(255, 0, 255, 0.5);
+              }
+            }
+
+            &.spot {
+              position: relative;
+
+              &::after {
+                position: absolute;
+                top: 20%;
+                right: 10%;
+                content: "";
+                background-color: black;
+                padding: 0.3rem;
+                border-radius: 50%;
+              }
+            }
+
+            &--neighboringMonth {
+              color: #ced4da;
+            }
+          }
+        }
+      }
+    }
+  }
+}
