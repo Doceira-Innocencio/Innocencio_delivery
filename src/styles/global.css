@@ -118,7 +118,8 @@ button {
       font-size: 2rem; }
 
 .ficha {
-  transform: scale(0.85); }
+  transform: scale(0.8);
+  margin-top: 40%; }
 
 .xl157123 {
   padding: 0px;
@@ -2153,6 +2154,111 @@ button {
   mso-pattern: black none;
   white-space: nowrap; }
 
+.overlayBeforeClose {
+  animation-name: fadeOut;
+  animation-fill-mode: both;
+  animation-duration: 0.3s; }
+
+.modalBeforeClose {
+  animation-name: fadeOut;
+  animation-duration: 0.3s;
+  animation-timing-function: Cub-bezier(0, 0, 0, 1);
+  animation-fill-mode: both; }
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation-name: fadeIn;
+  animation-fill-mode: both;
+  animation-duration: 0.3s;
+  transition: all 0.3s;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.37);
+  z-index: 1000000; }
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 60rem;
+  max-height: 55rem;
+  outline: none;
+  animation-name: fadeIn;
+  animation-fill-mode: both;
+  animation-duration: 0.3s;
+  border-radius: 5px;
+  background-color: white;
+  z-index: 1000001; }
+
+.dropDownContainer {
+  position: relative;
+  width: 20rem; }
+  .dropDownContainer .dropDownHeader {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.2rem;
+    padding-bottom: 0.3rem;
+    font-weight: 500;
+    font-size: 2rem;
+    font-weight: 400;
+    color: black;
+    background: #ffffff;
+    border-bottom: solid 2px black; }
+    .dropDownContainer .dropDownHeader span {
+      font-size: 1.9rem; }
+      .dropDownContainer .dropDownHeader span.placeholder {
+        color: #6e6e6e; }
+      .dropDownContainer .dropDownHeader span.option {
+        color: black; }
+  .dropDownContainer .dropDownListContainer {
+    animation-duration: 0.3s;
+    animation-name: fadeIn;
+    animation-fill-mode: both;
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-box-shadow: 3px 7px 16px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 7px 16px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 7px 16px -1px rgba(0, 0, 0, 0.75); }
+    .dropDownContainer .dropDownListContainer .dropDownList {
+      user-select: none;
+      background: #ffffff;
+      box-sizing: border-box;
+      font-size: 1.3rem;
+      font-weight: 500; }
+      .dropDownContainer .dropDownListContainer .dropDownList .listItem {
+        text-align: center;
+        padding: 1.1rem 0rem;
+        font-size: 1.8rem;
+        list-style: none;
+        border-bottom: solid 0.3px #7c7c7c;
+        transition: all 0.2s; }
+        .dropDownContainer .dropDownListContainer .dropDownList .listItem:hover {
+          background-color: var(--accent-hover-color);
+          color: white; }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 100%; } }
+
+@keyframes fadeOut {
+  0% {
+    opacity: 100%; }
+  100% {
+    opacity: 0%; } }
+
 *,
 *::after,
 *::before {
@@ -2245,3 +2351,31 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 20rem; }
+
+.fichaContainer {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  overflow: auto; }
+
+.fichaActions {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding-top: 2rem;
+  padding-bottom: 2rem; }
+  .fichaActions button {
+    transition: all 0.3s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    font-size: 1.8em; }
+    .fichaActions button:hover {
+      border: 1px solid var(--brand-color); }

@@ -5,7 +5,7 @@ export default function ListaEncomendas() {
   return (
     <div className="listaEncomendas">
       <div className={`content`}>
-        {!lista ? (
+        {lista ? (
           lista.map(() => {
             return (
               <div className="encomenda">

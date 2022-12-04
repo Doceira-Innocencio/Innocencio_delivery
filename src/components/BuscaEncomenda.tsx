@@ -1,13 +1,13 @@
 import Calendario from "./Elements/Calendar";
-import Ficha from "./Elements/FichaEncomenda";
 import ListaEncomendas from "./Elements/ListaEncomendas";
+import ModalFicha from "./ModalFicha";
 
 export default function BuscaEncomenda() {
   return (
     <div className="buscaEncomendas">
-      {/* <Calendario /> */}
+      <Calendario />
       {/* <ListaEncomendas /> */}
-      <Ficha />
+      {/* <ModalFicha /> */}
     </div>
   );
 }
