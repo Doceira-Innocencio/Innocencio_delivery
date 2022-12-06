@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ArrowDown } from "phosphor-react";
 
 interface DropDownInput {
   id?: string;
