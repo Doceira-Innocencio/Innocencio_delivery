@@ -1,12 +1,11 @@
-import { SectionProvider } from "../contexts/SectionContext";
 import "../styles/global.css";
+import type { AppProps } from "next/app";
+import { SectionProvider } from "../contexts/SectionsContext";
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <SectionProvider>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </SectionProvider>
   );
 }
-
-export default MyApp;

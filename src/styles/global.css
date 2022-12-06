@@ -1,76 +1,89 @@
 :root {
   --brand-color: rgba(230, 128, 8, 1);
   --accent-color: rgba(1, 137, 211, 1);
-  --accent-hover-color: rgb(136, 200, 234); }
+  --accent-hover-color: rgb(136, 200, 234);
+  --green-light: #69db7c;
+  --blue-light: #4dabf7;
+  --red-light: #ff6b6b; }
 
 button {
   border: none;
   font-family: inherit;
   background-color: transparent; }
 
-.form__group {
+.calendarioContainer {
+  animation-name: slideSide;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
   display: flex;
-  gap: 3rem; }
-  .form__group .form__radio-group {
-    display: inline-block; }
-    .form__group .form__radio-group .form__radio-input {
-      display: none; }
-    .form__group .form__radio-group .form__radio-label {
-      font-size: 2rem;
-      cursor: pointer;
-      position: relative; }
-    .form__group .form__radio-group .form__radio-button {
-      padding: 1rem 4rem;
-      border: 3px solid black;
-      display: inline-block;
-      transition: all 0.3s; }
-    .form__group .form__radio-group .form__radio-input:checked ~ .form__radio-label .form__radio-button {
-      border-color: var(--brand-color); }
-
-.react-calendar {
-  max-width: 30rem; }
-  .react-calendar abbr {
-    font-size: 2rem; }
-  .react-calendar button {
-    border-radius: 70px;
-    transition: all 0.3s; }
-    .react-calendar button:hover {
-      background-color: #88c8ea; }
-  .react-calendar__tile--now {
-    background-color: var(--brand-color); }
-    .react-calendar__tile--now abbr {
-      color: white; }
-  .react-calendar__tile--active {
-    background-color: var(--accent-color); }
-    .react-calendar__tile--active abbr {
-      color: white; }
-  .react-calendar__navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem; }
-    .react-calendar__navigation button {
-      font-size: 3rem; }
-  .react-calendar__viewContainer .react-calendar__month-view__weekdays {
-    font-size: 2rem;
-    margin-bottom: 2rem; }
-    .react-calendar__viewContainer .react-calendar__month-view__weekdays__weekday {
-      display: flex;
-      align-items: center;
-      justify-content: center; }
-  .react-calendar__viewContainer .react-calendar__month-view__days__day.fechado abbr {
-    color: rgba(255, 0, 255, 0.5); }
-  .react-calendar__viewContainer .react-calendar__month-view__days__day.spot {
-    position: relative; }
-    .react-calendar__viewContainer .react-calendar__month-view__days__day.spot::after {
-      position: absolute;
-      top: 20%;
-      right: 10%;
+  align-items: center;
+  justify-content: center;
+  left: 120%;
+  top: -100%;
+  min-width: 40rem;
+  min-height: 30rem;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 14px 20px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 30px;
+  z-index: 1100; }
+  .calendarioContainer .react-calendar {
+    position: relative;
+    max-width: 30rem;
+    z-index: 2; }
+    .calendarioContainer .react-calendar::after {
+      top: 0;
+      left: -25%;
       content: "";
-      background-color: black;
-      padding: 0.3rem;
-      border-radius: 50%; }
-  .react-calendar__viewContainer .react-calendar__month-view__days__day--neighboringMonth {
-    color: #ced4da; }
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-top: 30px solid transparent;
+      border-bottom: 30px solid transparent;
+      border-right: 30px solid white;
+      z-index: 0; }
+    .calendarioContainer .react-calendar abbr {
+      font-size: 2rem; }
+    .calendarioContainer .react-calendar button {
+      border-radius: 70px;
+      transition: all 0.3s; }
+      .calendarioContainer .react-calendar button:hover {
+        background-color: #88c8ea; }
+    .calendarioContainer .react-calendar__tile--now {
+      background-color: var(--brand-color); }
+      .calendarioContainer .react-calendar__tile--now abbr {
+        color: white; }
+    .calendarioContainer .react-calendar__tile--active {
+      background-color: var(--accent-color); }
+      .calendarioContainer .react-calendar__tile--active abbr {
+        color: white; }
+    .calendarioContainer .react-calendar__navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem; }
+      .calendarioContainer .react-calendar__navigation button {
+        font-size: 3rem; }
+    .calendarioContainer .react-calendar__viewContainer .react-calendar__month-view__weekdays {
+      font-size: 2rem;
+      margin-bottom: 2rem; }
+      .calendarioContainer .react-calendar__viewContainer .react-calendar__month-view__weekdays__weekday {
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+    .calendarioContainer .react-calendar__viewContainer .react-calendar__month-view__days__day.fechado abbr {
+      color: rgba(255, 0, 255, 0.5); }
+    .calendarioContainer .react-calendar__viewContainer .react-calendar__month-view__days__day.spot {
+      position: relative; }
+      .calendarioContainer .react-calendar__viewContainer .react-calendar__month-view__days__day.spot::after {
+        position: absolute;
+        top: 20%;
+        right: 10%;
+        content: "";
+        background-color: black;
+        padding: 0.3rem;
+        border-radius: 50%; }
+    .calendarioContainer .react-calendar__viewContainer .react-calendar__month-view__days__day--neighboringMonth {
+      color: #ced4da; }
 
 .listaEncomendas {
   position: relative;
@@ -118,7 +131,38 @@ button {
       font-size: 2rem; }
 
 .ficha {
-  transform: scale(0.85); }
+  display: block;
+  scale: 0.65;
+  transform-origin: top;
+  margin-top: 2rem;
+  margin-left: -5rem;
+  margin-right: -5rem;
+  margin-bottom: -55%; }
+  .ficha input {
+    resize: none;
+    padding: 0 1rem;
+    transition: all 0.3s;
+    width: 100%;
+    height: 100%; }
+    .ficha input:placeholder-shown {
+      border: 2px solid var(--brand-color);
+      animation-name: highlightInput;
+      animation-iteration-count: infinite;
+      animation-direction: alternate-reverse;
+      animation-duration: 0.9s; }
+  .ficha textarea {
+    padding: 0 1rem;
+    transition: all 0.3s;
+    width: 100%;
+    height: 100%; }
+    .ficha textarea:placeholder-shown {
+      border: 2px solid var(--brand-color);
+      animation-name: highlightInput;
+      animation-iteration-count: infinite;
+      animation-direction: alternate-reverse;
+      animation-duration: 0.9s; }
+  .ficha .dateCell {
+    position: relative; }
 
 .xl157123 {
   padding: 0px;
@@ -715,23 +759,18 @@ button {
 
 .xl917123 {
   padding: 0px;
-  mso-ignore: padding;
   color: black;
   font-size: 26pt;
   font-weight: 400;
   font-style: normal;
   text-decoration: none;
   font-family: Calibri, sans-serif;
-  mso-font-charset: 0;
-  mso-number-format: General;
   text-align: center;
   vertical-align: middle;
   border-top: none;
   border-right: none;
   border-bottom: 1pt solid windowtext;
   border-left: 0.5pt solid windowtext;
-  mso-background-source: auto;
-  mso-pattern: auto;
   white-space: nowrap; }
 
 .xl927123 {
@@ -2153,30 +2192,79 @@ button {
   mso-pattern: black none;
   white-space: nowrap; }
 
+.dropDownContainer {
+  width: 100%;
+  height: 100%;
+  position: relative; }
+  .dropDownContainer .dropDownHeader {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.2rem;
+    padding-bottom: 0.3rem;
+    font-weight: 500;
+    font-size: 2rem;
+    font-weight: 400;
+    color: black;
+    background: #ffffff; }
+    .dropDownContainer .dropDownHeader span {
+      font-size: 1.9rem; }
+      .dropDownContainer .dropDownHeader span.placeholder {
+        color: #6e6e6e; }
+      .dropDownContainer .dropDownHeader span.option {
+        color: black; }
+  .dropDownContainer .dropDownListContainer {
+    z-index: 100;
+    animation-duration: 0.3s;
+    animation-name: fadeIn;
+    animation-fill-mode: both;
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-box-shadow: 3px 7px 16px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 7px 16px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 7px 16px -1px rgba(0, 0, 0, 0.75); }
+    .dropDownContainer .dropDownListContainer .dropDownList {
+      user-select: none;
+      background: #ffffff;
+      box-sizing: border-box;
+      font-size: 1.3rem;
+      font-weight: 500; }
+      .dropDownContainer .dropDownListContainer .dropDownList .listItem {
+        text-align: center;
+        padding: 1.1rem 0rem;
+        font-size: 1.8rem;
+        list-style: none;
+        border-bottom: solid 0.3px #7c7c7c;
+        transition: all 0.2s; }
+        .dropDownContainer .dropDownListContainer .dropDownList .listItem:hover {
+          background-color: var(--accent-hover-color);
+          color: white; }
+
+@keyframes highlightInput {
+  0% {
+    border-color: #ff8800; }
+  100% {
+    border-color: white; } }
+
+@keyframes slideSide {
+  0% {
+    opacity: 0%;
+    transform: translate(-20px, 0px); }
+  100% {
+    opacity: 100%;
+    transform: translate(0px, 0px); } }
+
 *,
 *::after,
 *::before {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
-  -webkit-top-highlight-color: transparent; }
+  box-sizing: border-box; }
 
 html {
   font-size: 62.5%; }
-
-main {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-
-.content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%; }
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -2196,52 +2284,50 @@ a {
 
 body {
   font-family: "EB Garamond";
-  font-weight: 500; }
+  font-weight: 400; }
 
-.unidadeSection {
+main {
+  transition: all 0.2s;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  gap: 7rem; }
-  .unidadeSection h1 {
-    font-size: 3.5rem;
-    font-weight: 400; }
-
-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: black;
-  color: white;
-  font-size: 2rem;
-  padding: 3rem 0; }
-  header img {
-    margin-right: 2rem; }
-  header .header_homeRefs {
-    margin-left: 5rem;
+  justify-content: center; }
+  main.NOVO {
+    background-color: var(--green-light); }
+  main.BUSCA {
+    background-color: var(--blue-light); }
+  main .mainContainer {
     display: flex;
-    align-items: center; }
-    header .header_homeRefs .header_logo {
-      width: 10rem; }
-  header .header_modulos {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 3rem;
-    margin-right: 5rem; }
-    header .header_modulos .selected {
-      position: relative; }
-      header .header_modulos .selected::after {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 115%;
-        content: "";
-        padding-top: 2px;
-        background-color: var(--brand-color); }
-
-.buscaEncomendas {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20rem; }
+    justify-content: space-between;
+    overflow: hidden;
+    box-shadow: 0px 14px 20px 0px rgba(0, 0, 0, 0.4);
+    border-radius: 30px;
+    background-color: white;
+    overflow: hidden; }
+    main .mainContainer .actionsBar {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-bottom: 6rem; }
+      main .mainContainer .actionsBar button {
+        cursor: pointer;
+        font-size: 2rem;
+        transition: all 0.3s;
+        padding: 0.2rem 2rem;
+        border-radius: 15px; }
+        main .mainContainer .actionsBar button:hover {
+          filter: brightness(1.1); }
+        main .mainContainer .actionsBar button.cancelar {
+          color: white;
+          background-color: var(--red-light); }
+        main .mainContainer .actionsBar button.criar {
+          color: white;
+          background-color: var(--green-light); }
+        main .mainContainer .actionsBar button.buscar {
+          color: white;
+          background-color: var(--blue-light); }
+  main.edit {
+    background-color: var(--green-light); }

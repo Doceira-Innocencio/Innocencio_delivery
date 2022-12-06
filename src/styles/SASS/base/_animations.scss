@@ -1,0 +1,21 @@
+@keyframes highlightInput {
+  0% {
+    border-color: rgb(255, 136, 0);
+  }
+
+  100% {
+    border-color: rgb(255, 255, 255);
+  }
+}
+
+@keyframes slideSide {
+  0% {
+    opacity: 0%;
+    transform: translate(-20px, 0px);
+  }
+
+  100% {
+    opacity: 100%;
+    transform: translate(0px, 0px);
+  }
+}

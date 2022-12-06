@@ -1,15 +1,26 @@
 import { useContext, useState } from "react";
 import { RegistroEncomendaContext } from "../../contexts/RegistroEncomendaContext";
+import { SectionContext } from "../../contexts/SectionsContext";
+import Calendario from "./Calendario";
+import DropDownInput from "./form/DropDownInput";
 
 export default function FichaEncomenda() {
   const { registroEncomendaProps, setRegistroEncomendaProps } = useContext(
     RegistroEncomendaContext
   );
 
+  const { sectionProps, setSectionMode } = useContext(SectionContext);
+  const [onCalendarShow, setOnCalendarShow] = useState(false);
+
+  function handleToggleCalendarShow() {
+    setOnCalendarShow(!onCalendarShow);
+  }
+
   const fichaInfo = { ...registroEncomendaProps };
 
   return (
     <table
+      id="ficha"
       className="ficha"
       border={0}
       cellPadding={0}
@@ -201,14 +212,46 @@ export default function FichaEncomenda() {
             className="xl1057123"
             style={{ height: "14.45pt" }}
           >
-            {fichaInfo.cliente.nome}
+            {sectionProps.mode == "NOVO" && (
+              <DropDownInput
+                id="Novo_NOME"
+                opcoes={[
+                  "CELSO LORENSATTO DA SILVA FILHO",
+                  "CELSO LORENSATTO DA SILVA",
+                ]}
+                placeholder=" "
+              />
+            )}
+            {sectionProps.mode == "BUSCA" && (
+              <DropDownInput
+                id="Busca_NOME"
+                opcoes={[
+                  "CELSO LORENSATTO DA SILVA FILHO",
+                  "CELSO LORENSATTO DA SILVA",
+                ]}
+                placeholder=" "
+              />
+            )}
           </td>
           <td
             colSpan={3}
             className="xl1077123"
             style={{ borderRight: "1.0pt solid black" }}
           >
-            {fichaInfo.cliente.telefone}
+            {sectionProps.mode == "NOVO" && (
+              <DropDownInput
+                id="Novo_TELEFONE"
+                opcoes={["Celso (11) 9 5499-2796", "Marcos (11) 9 5499-2794"]}
+                placeholder=" "
+              />
+            )}
+            {sectionProps.mode == "BUSCA" && (
+              <DropDownInput
+                id="Busca_TELEFONE"
+                opcoes={["Celso (11) 9 5499-2796", "Marcos (11) 9 5499-2794"]}
+                placeholder=" "
+              />
+            )}
           </td>
         </tr>
         <tr height={20} style={{ height: "15.0pt" }}>
@@ -238,29 +281,43 @@ export default function FichaEncomenda() {
           <td
             colSpan={2}
             height={42}
-            className="xl1147123"
+            onClick={handleToggleCalendarShow}
+            className="xl1147123 dateCell"
             style={{ borderRight: ".5pt solid black", height: "31.5pt" }}
           >
-            {fichaInfo.encomenda.entrega.toLocaleString("pt-br", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}
+            {sectionProps.mode == "NOVO" && (
+              <input
+                onFocus={() => setOnCalendarShow(true)}
+                id="NOVO_DATA"
+                placeholder=" "
+                type="text"
+              />
+            )}
+
+            {sectionProps.mode == "BUSCA" && (
+              <input
+                onFocus={() => setOnCalendarShow(true)}
+                id="NOVO_BUSCA"
+                placeholder=" "
+                type="text"
+              />
+            )}
+            {onCalendarShow && <Calendario />}
           </td>
           <td className="xl907123" style={{ borderLeft: "none" }}>
-            {fichaInfo.encomenda.entrega.toLocaleString("pt-br", {
+            {/* {fichaInfo.encomenda.entrega.toLocaleString("pt-br", {
               weekday: "long",
-            })}
+            })} */}
           </td>
           <td
             colSpan={3}
             className="xl1167123"
             style={{ borderRight: "1.0pt solid black" }}
           >
-            {fichaInfo.encomenda.entrega.toLocaleString("pt-br", {
+            {/* {fichaInfo.encomenda.entrega.toLocaleString("pt-br", {
               hour: "2-digit",
               minute: "2-digit",
-            })}
+            })} */}
           </td>
         </tr>
         <tr height={20} style={{ height: "15.0pt" }}>
@@ -297,32 +354,42 @@ export default function FichaEncomenda() {
         <tr height={45} style={{ height: "33.75pt" }}>
           <td
             colSpan={2}
-            height={45}
+            height={50}
             className="xl1197123"
-            style={{ borderRight: ".5pt solid black", height: "33.75pt" }}
+            style={{ borderRight: ".5pt solid black" }}
           >
-            {fichaInfo.pedido.peso}
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_PESO" placeholder=" " type="text" />
+            )}
           </td>
-          <td className="xl917123" style={{ borderLeft: "none" }}>
-            {fichaInfo.pedido.formato}
+          <td className="xl917123" height={50} style={{ borderLeft: "none" }}>
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_FORMATO" placeholder=" " type="text" />
+            )}
           </td>
           <td
             className="xl667123"
-            width={68}
+            height={50}
             style={{ borderTop: "none", width: "51pt" }}
           >
-            {fichaInfo.pedido.cor}
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_COR" placeholder=" " type="text" />
+            )}
           </td>
           <td
             className="xl657123"
             align="right"
-            width={101}
+            height={50}
             style={{ borderTop: "none", borderLeft: "none", width: "76pt" }}
           >
-            {fichaInfo.pedido.lateral}
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_LATERAL" placeholder=" " type="text" />
+            )}
           </td>
-          <td className="xl737123" align="right">
-            {fichaInfo.pedido.idade}
+          <td className="xl737123" height={50} align="right">
+            {sectionProps.mode == "NOVO" && (
+              <input id="Novo_IDADE" placeholder=" " type="text" />
+            )}
           </td>
         </tr>
         <tr height={21} style={{ height: "15.75pt" }}>
@@ -342,7 +409,9 @@ export default function FichaEncomenda() {
         </tr>
         <tr height={20} style={{ height: "15.0pt" }}>
           <td height={20} className="xl747123" style={{ height: "15.0pt" }}>
-            {fichaInfo.pedido.codigo}
+            {sectionProps.mode == "NOVO" && (
+              <input id="Novo_PEDIDO_CODIGO" placeholder=" " type="text" />
+            )}
             <span style={{}}>&nbsp;&nbsp; </span>
           </td>
           <td
@@ -350,13 +419,19 @@ export default function FichaEncomenda() {
             className="xl1227123"
             style={{ borderLeft: "none", overflow: "hidden" }}
           >
-            {fichaInfo.pedido.descricao}
+            {sectionProps.mode == "NOVO" && (
+              <input disabled id="Novo_PEDIDO_DESCRICAO" type="text" />
+            )}
           </td>
           <td className="xl637123" style={{ borderLeft: "none" }}>
-            {fichaInfo.pedido.qtd}
+            {sectionProps.mode == "NOVO" && (
+              <input id="Novo_PEDIDO_QUANTIDADE" placeholder=" " type="text" />
+            )}
           </td>
           <td className="xl697123" style={{ borderLeft: "none" }}>
-            {fichaInfo.pedido.unitario.toFixed(2)}
+            {sectionProps.mode == "NOVO" && (
+              <input disabled id="Novo_PEDIDO_UNITARIO" type="text" />
+            )}
             <span style={{}}>&nbsp;&nbsp; </span>
           </td>
           <td className="xl757123" style={{ borderLeft: "none" }}>
@@ -367,24 +442,21 @@ export default function FichaEncomenda() {
         <tr height={20} style={{ height: "15.0pt" }}>
           <td height={20} className="xl747123" style={{ height: "15.0pt" }}>
             &nbsp;
-            {fichaInfo.entrega.qtd && "198"}
             <span style={{}}>&nbsp;&nbsp; </span>
           </td>
-          <td colSpan={2} className="xl1227123" style={{ borderLeft: "none" }}>
-            {fichaInfo.entrega.qtd ? "TAXA DE ENTREGA" : <>&nbsp;</>}
-          </td>
+          <td
+            colSpan={2}
+            className="xl1227123"
+            style={{ borderLeft: "none" }}
+          ></td>
           <td
             className="xl647123"
             style={{ borderTop: "none", borderLeft: "none" }}
-          >
-            {fichaInfo.entrega.qtd}
-          </td>
+          ></td>
           <td className="xl697123" style={{ borderLeft: "none" }}>
-            {fichaInfo.entrega.unitario.toFixed(2)}
             <span style={{}}>&nbsp;&nbsp; </span>
           </td>
           <td className="xl757123" style={{ borderLeft: "none" }}>
-            {(fichaInfo.entrega.unitario * fichaInfo.entrega.qtd).toFixed(2)}
             <span style={{}}>&nbsp;&nbsp; </span>
           </td>
         </tr>
@@ -600,7 +672,13 @@ export default function FichaEncomenda() {
               width: "408pt",
             }}
           >
-            {fichaInfo.pedido.observacao}
+            {sectionProps.mode == "NOVO" && (
+              <textarea
+                id="Novo_PEDIDO_OBSERVACAO"
+                placeholder=" "
+                type="text"
+              />
+            )}
           </td>
         </tr>
         <tr height={20} style={{ height: "15.0pt" }}></tr>
@@ -701,11 +779,27 @@ export default function FichaEncomenda() {
             className="xl1057123"
             style={{ borderRight: ".5pt solid black", height: "15.0pt" }}
           >
-            {fichaInfo.cliente.endereco}
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_ENDERECO" placeholder=" " type="text" />
+            )}
+
+            {sectionProps.mode == "BUSCA" && (
+              <input id="BUSCA_ENDERECO" placeholder=" " type="text" />
+            )}
           </td>
-          <td className="xl677123">{fichaInfo.cliente.nEndereco}</td>
+          <td className="xl677123">
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_nENDERECO" placeholder=" " type="text" />
+            )}
+          </td>
           <td className="xl737123" align="right">
-            {fichaInfo.cliente.cep}
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_DATA" placeholder=" " type="text" />
+            )}
+
+            {sectionProps.mode == "BUSCA" && (
+              <input id="BUSCA_DATA" placeholder=" " type="text" />
+            )}
           </td>
         </tr>
         <tr height={20} style={{ height: "15.0pt" }}>
@@ -732,7 +826,9 @@ export default function FichaEncomenda() {
             className="xl1517123"
             style={{ height: "15.0pt" }}
           >
-            {fichaInfo.cliente.bairro}
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_BAIRRO" placeholder=" " type="text" />
+            )}
           </td>
           <td className="xl707123" style={{ borderTop: "none" }}>
             &nbsp;
@@ -742,7 +838,9 @@ export default function FichaEncomenda() {
             className="xl1537123"
             style={{ borderRight: "1.0pt solid black", borderLeft: "none" }}
           >
-            {fichaInfo.cliente.complemento}
+            {sectionProps.mode == "NOVO" && (
+              <input id="NOVO_COMPLEMENTO" placeholder=" " type="text" />
+            )}
           </td>
         </tr>
         <tr height={21} style={{ height: "15.75pt" }}>
@@ -775,20 +873,32 @@ export default function FichaEncomenda() {
             className="xl1467123"
             style={{ borderRight: ".5pt solid black", height: "19.5pt" }}
           >
-            {new Date(fichaInfo.registro.encomendado).toLocaleDateString(
-              "pt-br",
-              { day: "2-digit", month: "2-digit", year: "numeric" }
-            )}
+            {new Date().toLocaleDateString("pt-br", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
           </td>
           <td
             colSpan={3}
             className="xl1487123"
             style={{ borderRight: ".5pt solid black", borderLeft: "none" }}
           >
-            {fichaInfo.registro.balconista}
+            {sectionProps.mode == "NOVO" && (
+              <DropDownInput
+                id="Novo_NOME"
+                opcoes={[
+                  "CELSO LORENSATTO DA SILVA FILHO",
+                  "CELSO LORENSATTO DA SILVA",
+                ]}
+                placeholder=" "
+              />
+            )}
           </td>
           <td className="xl717123" style={{ borderLeft: "none" }}>
-            {fichaInfo.registro.pedido}
+            {sectionProps.mode == "BUSCA" && (
+              <input type="numeric" id="Busca_NOME" placeholder=" " />
+            )}
           </td>
         </tr>
         <tr height={0} style={{ display: "none" }}>
