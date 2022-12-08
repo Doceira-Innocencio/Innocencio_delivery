@@ -1,0 +1,226 @@
+.fichaContainer {
+  width: 60rem;
+  margin: 5rem;
+  font-family: "arial";
+  font-weight: 400;
+
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  input {
+    padding: 0.3rem;
+    width: 100%;
+    border: 0.5px solid #828282;
+  }
+
+  h1:first-child {
+    text-align: center;
+    display: block;
+    background-color: #d9d9d9;
+    color: black;
+    border: 0.5px solid #828282;
+  }
+  .fichaHeader {
+    .claim {
+      position: relative;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline;
+        width: 10rem;
+      }
+
+      h1 {
+        padding: 1.3rem 0;
+        text-align: center;
+        font-size: 2rem;
+      }
+    }
+    .endereco {
+      padding: 1rem 0;
+
+      h1 {
+        border: 0px solid black;
+        background-color: transparent;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-align: left;
+      }
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      .contato {
+        h1 {
+          text-align: right;
+        }
+      }
+    }
+  }
+  .fichaCliente {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fichaEncomendaData {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+
+    input {
+      text-align: center;
+      font-size: 2rem;
+    }
+  }
+
+  .fichaEncomendaBolo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.5fr 1fr 0.5fr;
+
+    div {
+      display: grid;
+
+      grid-template-rows: 1fr 2fr;
+    }
+
+    input {
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    div:nth-child(3) {
+      input {
+        font-size: 1.3rem;
+      }
+    }
+    div:nth-child(4) {
+      input {
+        font-size: 1.3rem;
+      }
+    }
+    div:nth-child(5) {
+      input {
+        font-size: 1.3rem;
+      }
+    }
+  }
+  .fichaEncomendaPedidos {
+    table {
+      border-collapse: collapse;
+      width: 100%;
+
+      tr {
+        th {
+          font-size: 1.3rem;
+          font-weight: 600;
+          text-align: center;
+          background-color: #d9d9d9;
+          color: black;
+        }
+
+        th:nth-child(1) {
+          width: 20%;
+        }
+        th:nth-child(2) {
+          width: 20%;
+        }
+        th:nth-child(3) {
+          width: 10%;
+        }
+        th:nth-child(4) {
+          width: 20%;
+        }
+        th:nth-child(5) {
+          width: 10%;
+        }
+      }
+    }
+  }
+  .fichaValores {
+    display: flex;
+    border-right: 1px solid #828282;
+    border-left: 1px solid #828282;
+
+    .blankSpace {
+      flex: 0 0 62.3%;
+    }
+
+    .valores {
+      flex: 0 0 37.7%;
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        tr {
+          border-left: 1px solid #828282;
+
+          &:not(:first-child) {
+            border-top: 1px solid #828282;
+          }
+
+          &:not(:last-child) {
+            border-bottom: 1px solid #828282;
+          }
+        }
+
+        th {
+          font-size: 1.3rem;
+          font-weight: 600;
+          text-align: center;
+          background-color: #d9d9d9;
+          color: black;
+          text-align: left;
+          padding: 0.2rem;
+        }
+
+        th:nth-child(1) {
+          width: 66.5%;
+        }
+
+        td {
+          font-size: 1.3rem;
+          text-align: center;
+          width: 100%;
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .fichaObservacao {
+    border-right: 1px solid #828282;
+    border-left: 1px solid #828282;
+    textarea {
+      padding: 1rem;
+      font: inherit;
+      font-size: 1.3rem;
+      width: 100%;
+      height: 6rem;
+      resize: none;
+      border: none;
+      border-top: 1px solid #828282;
+    }
+  }
+
+  .fichaEndereco_1 {
+    display: grid;
+    grid-template-columns: 3.3fr 1fr 1fr;
+  }
+
+  .fichaEndereco_2 {
+    display: grid;
+    grid-template-columns: 3.3fr 2fr;
+  }
+
+  .fichaDados {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+
+    input {
+      text-align: center;
+    }
+  }
+}
