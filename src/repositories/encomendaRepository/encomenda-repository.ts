@@ -78,4 +78,28 @@ export interface EncomendaRepository {
     cliente: Cliente;
     pedidos: Pedido[];
   }) => Promise<void>;
+
+  updateEncomenda: (
+    codigo: string,
+    encomenda: {
+      ZM_FILIAL: string;
+      ZM_TALAO: string;
+      ZM_DENTR: string;
+      ZM_HENTR: string;
+      ZM_PESO: number;
+      ZM_FORMATO: string;
+      ZM_COR: string;
+      ZM_LATERAL: string;
+      ZM_IDADE: number;
+      ZM_FENTR: "" | "01" | "02";
+    },
+    pedidos: {
+      ZN_ITEM: string;
+      ZN_PRODUTO: string;
+      ZN_DESCRI: string;
+      ZN_QUANT: number;
+      ZN_VRUNIT: number;
+      ZN_VLRITEM: number;
+    }[]
+  ) => Promise<void>;
 }

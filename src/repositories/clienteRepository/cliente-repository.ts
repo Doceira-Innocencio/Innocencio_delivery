@@ -19,4 +19,6 @@ export interface clienteRepository {
   }) => Promise<Cliente[] | null>;
 
   createOne: (data: Cliente) => Promise<void>;
+
+  update: (data: Cliente) => Promise<void>;
 }

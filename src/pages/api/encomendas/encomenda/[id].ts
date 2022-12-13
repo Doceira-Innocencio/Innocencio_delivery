@@ -1,9 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
+import { PrismaClienteRepository } from "../../../../repositories/clienteRepository/prisma-cliente-repository";
 import { PrismaEncomendaRepository } from "../../../../repositories/encomendaRepository/prisma-encomenda-repository";
 
 const handler = nextConnect();
 
+const clienteDb = new PrismaClienteRepository();
 const encomendaDb = new PrismaEncomendaRepository();
 
 const EncomendaById = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -55,6 +57,73 @@ const EncomendaById = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+const UpdateEncomendaById = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
+  const { id } = req.query;
+  const { filial, encomenda, cliente, pedidos } = req.body;
+
+  if (!id) {
+    return res.status(400).json({
+      status: "error",
+      message: "bad Request",
+    });
+  }
+
+  if (encomenda) {
+    await encomendaDb.updateEncomenda(id, {
+      ZM_DENTR: encomenda.dEntrega,
+      ZM_HENTR: encomenda.hEntrega,
+      ZM_PESO: encomenda.peso,
+      ZM_FORMATO: encomenda.formato,
+      ZM_COR: encomenda.cor,
+      ZM_OBS: encomenda.observacao,
+      ZM_LATERAL: encomenda.lateral,
+      ZM_IDADE: encomenda.idade,
+      ZM_FENTR: encomenda.entrega,
+      ZM_VLRTOT: encomenda.total,
+      ZM_SINAL: encomenda.sinal,
+      ZM_RESTA: encomenda.resta,
+    });
+  }
+
+  if (pedidos) {
+    await encomendaDb.updatePedidosEncomenda(
+      id,
+      pedidos.map((pedido) => {
+        return {
+          ZM_FILIAL: filial,
+          ZM_TALAO: "010",
+          ZN_ITEM: pedido.item,
+          ZN_PRODUTO: pedido.produto,
+          ZN_DESCRI: pedido.descricao,
+          ZN_QUANT: pedido.qtd,
+          ZN_VRUNIT: pedido.unitario,
+          ZN_VLRITEM: pedido.total,
+        };
+      })
+    );
+  }
+
+  if (cliente) {
+    await clienteDb.update({
+      ZR_CODIGO: cliente.codigo,
+      ZR_END1: cliente.endereco,
+      ZR_CEP1: cliente.cep,
+      ZR_BAIRRO1: cliente.bairro,
+      ZR_COMPL1: cliente.complemento,
+      ZR_TEL: cliente.telefone,
+    });
+  }
+
+  return res.status(200).json({
+    status: "ok",
+  });
+};
+
 handler.get(EncomendaById);
+
+handler.patch(UpdateEncomendaById);
 
 export default handler;

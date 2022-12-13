@@ -60,4 +60,20 @@ export class PrismaClienteRepository implements clienteRepository {
 
     await prisma.$queryRawUnsafe(query);
   }
+
+  async update(data: Cliente) {
+    const query = `
+	UPDATE SZR010  
+	SET
+		ZR_END1 = '${data.ZR_END1}',
+		ZR_CEP1 ='${data.ZR_CEP1}',
+		ZR_BAIRRO1 ='${data.ZR_BAIRRO1}',
+		ZR_COMPL1 ='${data.ZR_COMPL1}',
+		ZR_TEL ='${data.ZR_TEL}'
+	WHERE 
+		ZR_CODIGO  = '${data.ZR_CODIGO}'
+	`;
+
+    await prisma.$queryRawUnsafe(query);
+  }
 }

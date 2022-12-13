@@ -245,4 +245,101 @@ export class PrismaEncomendaRepository implements EncomendaRepository {
 
     await prisma.$queryRawUnsafe(query);
   }
+
+  async updateEncomenda(
+    codigo: string,
+    encomenda: {
+      ZM_FILIAL: string;
+      ZM_TALAO: string;
+      ZM_DENTR: string;
+      ZM_HENTR: string;
+      ZM_PESO: number;
+      ZM_FORMATO: string;
+      ZM_COR: string;
+      ZM_LATERAL: string;
+      ZM_IDADE: number;
+      ZM_VLRTOT: number;
+      ZM_SINAL: number;
+      ZM_RESTA: number;
+      ZM_OBS: string;
+      ZM_FENTR: "" | "01" | "02";
+    }
+  ) {
+    const query = `
+      UPDATE SZM010 
+      SET
+	      ZM_DENTR = '${encomenda.ZM_DENTR}',
+	      ZM_HENTR = '${encomenda.ZM_HENTR}',
+	      ZM_PESO = ${encomenda.ZM_PESO},
+	      ZM_FORMATO = '${encomenda.ZM_FORMATO}',
+	      ZM_COR  = '${encomenda.ZM_COR}',
+	      ZM_LATERAL  = '${encomenda.ZM_LATERAL}',
+	      ZM_IDADE  = ${encomenda.ZM_IDADE},
+	      ZM_FENTR  = '${encomenda.ZM_FENTR}',
+        ZM_VLRTOT = ${encomenda.ZM_VLRTOT},
+        ZM_SINAL = ${encomenda.ZM_SINAL},
+        ZM_RESTA = ${encomenda.ZM_RESTA},
+        ZM_OBS = '${encomenda.ZM_OBS}'
+      WHERE 
+	      ZM_PEDIDO = '${codigo}'
+      `;
+
+    await prisma.$queryRawUnsafe(query);
+  }
+
+  async updatePedidosEncomenda(
+    codigo: string,
+    pedidos: {
+      ZM_FILIAL: string;
+      ZM_TALAO: string;
+      ZN_ITEM: string;
+      ZN_PRODUTO: string;
+      ZN_DESCRI: string;
+      ZN_QUANT: number;
+      ZN_VRUNIT: number;
+      ZN_VLRITEM: number;
+    }[]
+  ) {
+    let query;
+    query = `
+    delete from SZN010 
+    WHERE ZN_PEDIDO = '${codigo}'
+    `;
+
+    await prisma.$queryRawUnsafe(query);
+
+    query = `INSERT INTO SZN010  
+  (
+    ZN_FILIAL,
+    ZN_TALAO,
+    ZN_PEDIDO,
+    ZN_ITEM,
+    ZN_PRODUTO,
+    ZN_DESCRI,
+    ZN_QUANT,
+    ZN_VRUNIT,
+    ZN_VLRITEM,
+    R_E_C_N_O_
+  ) 
+  VALUES
+  ${pedidos.map((pedido) => {
+    return `(
+      '${pedido.ZM_FILIAL}',
+      '${pedido.ZM_TALAO}',
+      '${codigo}',
+      '${pedido.ZN_ITEM}',
+      '${pedido.ZN_PRODUTO}',
+      '${pedido.ZN_DESCRI}',
+      ${pedido.ZN_QUANT},
+      ${pedido.ZN_VRUNIT},
+      ${pedido.ZN_VLRITEM},
+      (SELECT TOP 1 s.R_E_C_N_O_
+        from SZN010 s
+        order by s.R_E_C_N_O_ DESC)+1
+    )`;
+  })}
+  ;`;
+
+    await prisma.$queryRawUnsafe(query);
+  }
 }
