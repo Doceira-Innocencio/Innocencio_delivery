@@ -1,3 +1,5 @@
+import DropDownInput from "./form/DropDownInput";
+
 export default function FichaEncomenda() {
   return (
     <div id="ficha" className="fichaContainer">
@@ -20,7 +22,7 @@ export default function FichaEncomenda() {
       <div className="fichaCliente">
         <div>
           <h1>Nome do Cliente</h1>
-          <input type="text" value="CELSO LORENSATTO DA SILVA FILHO" />
+          <DropDownInput opcoes={["opcao 1", "opcao 2"]} />
         </div>
         <div>
           <h1>Telefone</h1>

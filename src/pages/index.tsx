@@ -65,12 +65,6 @@ export default function Home() {
                 Cancelar
               </button>
               <button
-                className="buscar"
-                onClick={() => setSectionMode("BUSCA")}
-              >
-                Buscar
-              </button>
-              <button
                 className="Imprimir"
                 onClick={function () {
                   const ficha = document.getElementById("ficha");
