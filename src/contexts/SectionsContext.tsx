@@ -17,6 +17,7 @@ interface SectionProviderProps {
 
 interface SectionProps {
   mode: "INICIO" | "NOVO" | "BUSCA";
+  filial: "01" | "02";
 }
 
 interface SectionContextProps {
@@ -32,6 +33,7 @@ export const SectionContext = createContext<SectionContextProps>(
 export function SectionProvider({ children }: SectionProviderProps) {
   const [sectionProps, setSectionProps] = useState({
     mode: "INICIO",
+    filial: "01",
   } as SectionProps);
 
   function setSectionMode(modeVAL: "INICIO" | "NOVO" | "BUSCA") {

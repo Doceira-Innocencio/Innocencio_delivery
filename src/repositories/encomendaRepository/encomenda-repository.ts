@@ -1,4 +1,5 @@
 export interface Pedido {
+  ZN_PEDIDO: string;
   ZN_ITEM: string;
   ZN_PRODUTO: string;
   ZN_DESCRI: string;

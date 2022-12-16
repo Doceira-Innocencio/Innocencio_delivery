@@ -28,11 +28,19 @@ main {
     background-color: white;
     overflow: hidden;
 
+    .fichaViewContainer {
+      transition: all 0.3s;
+      gap: 5rem;
+      margin: 5rem;
+      display: flex;
+      align-items: center;
+    }
+
     .actionsBar {
       display: flex;
       justify-content: space-around;
       width: 100%;
-      margin-bottom: 6rem;
+      margin-bottom: 3rem;
 
       button {
         cursor: pointer;

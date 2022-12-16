@@ -4,14 +4,14 @@ import { Cliente, clienteRepository } from "./cliente-repository";
 export class PrismaClienteRepository implements clienteRepository {
   async findMany({ ZR_NOME, ZR_TEL }: { ZR_NOME?: string; ZR_TEL?: string }) {
     let busca;
+    let query;
     if (ZR_NOME) {
-      busca = `.[ZR_NOME] like '${ZR_NOME}%' AND 1=1) `;
+      query = `SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY ZR_CODIGO) AS Seq FROM [dbo].[SZR010]  WHERE UPPER([dbo].[SZR010].[ZR_NOME]) like UPPER('${ZR_NOME}%') AND 1=1)T WHERE Seq >= 1 AND Seq < 6  ORDER BY Seq`;
     }
     if (ZR_TEL) {
-      busca = `.[ZR_TEL] like '${ZR_TEL}%' AND 1=1)`;
+      busca = ``;
+      query = `SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY ZR_CODIGO) AS Seq FROM [dbo].[SZR010]  WHERE ([dbo].[SZR010].[ZR_TEL] like '%${ZR_TEL}%' AND 1=1))T WHERE Seq >= 1 AND Seq < 6  ORDER BY Seq`;
     }
-
-    let query = `SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY ZR_CODIGO) AS Seq FROM [dbo].[SZR010]  WHERE ([dbo].[SZR010]${busca})T WHERE Seq >= 1 AND Seq < 6  ORDER BY Seq`;
 
     const cliente = (await prisma.$queryRawUnsafe(query)) as Cliente[];
 

@@ -10,16 +10,33 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import { api } from "../util/api";
 
 interface RegistroEncomendaProviderProps {
   children: ReactNode;
 }
 
 interface RegistroEncomendaProps {
+  cadastroContext: {
+    dateSelected: string;
+    codigoEncomenda: string;
+    concluivel: boolean;
+    clienteAutoComplete: {
+      nome: string;
+      telefone: string;
+      endereco: string;
+      nEndereco: string;
+      cep: string;
+      bairro: string;
+      complemento: string;
+      estado: string;
+    };
+  };
   registro: {
     encomendado: Date | string;
     balconista: string;
-    pedido: number;
+    nBalconista: string;
+    pedido: string;
   };
   cliente: {
     nome: string;
@@ -29,33 +46,68 @@ interface RegistroEncomendaProps {
     cep?: string;
     bairro?: string;
     complemento?: string;
-    sinal?: number;
+    estado?: string;
+    distancia: number;
   };
   encomenda: {
-    entrega: Date | string;
-  };
-  pedido: {
-    peso: string;
+    dEntrega: string;
+    hEntrega: string;
+    peso: number;
     formato: string;
     cor: string;
     lateral: string;
-    idade: string | number;
-    codigo: number;
-    descricao: string;
-    qtd: number;
-    unitario: number;
+    idade: number;
+    total: number;
+    sinal: number;
+    resta: number;
     observacao: string;
-  };
-  entrega: {
-    qtd: number;
-    unitario: number;
+    pedidos: Pedido[];
+    entrega: "00" | "01" | "02";
   };
 }
 
 interface RegistroEncomendaContextProps {
-  registroEncomendaProps: RegistroEncomendaProps | {};
+  registroEncomendaProps: RegistroEncomendaProps;
   setRegistroEncomendaProps: Dispatch<SetStateAction<RegistroEncomendaProps>>;
+  fetchNewEncomenda: (codigoEncomenda: string) => Promise<void>;
+  resetForm: () => void;
 }
+
+type Pedido = {
+  codigo: string;
+  item: string;
+  produto: string;
+  descricao: string;
+  qtd: number;
+  unitario: number;
+  vItem: number;
+};
+
+type apiEncomendaAtt = {
+  cliente: string;
+  telefone: string;
+  dEntrega: string;
+  hEntrega: string;
+  peso: number;
+  formato: string;
+  cor: string;
+  lateral: string;
+  idade: number;
+  endereco: string;
+  cep: string;
+  bairro: string;
+  complemento: string;
+  dPedido: string;
+  balconista: string;
+  codigo: string;
+  observacao: string;
+
+  entrega: "00" | "01" | "02";
+  total: number;
+  sinal: number;
+  resta: number;
+  pedidos: Pedido[];
+};
 
 export const RegistroEncomendaContext =
   createContext<RegistroEncomendaContextProps>(
@@ -66,45 +118,163 @@ export function RegistroEncomendaProvider({
   children,
 }: RegistroEncomendaProviderProps) {
   const [registroEncomendaProps, setRegistroEncomendaProps] = useState({
+    cadastroContext: {
+      dateSelected: "",
+      codigoEncomenda: "",
+      concluivel: false,
+      clienteAutoComplete: {
+        nome: "",
+        telefone: "",
+        endereco: "",
+        nEndereco: "",
+        cep: "",
+        bairro: "",
+        complemento: "",
+      },
+    },
     registro: {
-      encomendado: "2022-12-11",
-      balconista: "Wania",
-      pedido: 776,
+      encomendado: "",
+      balconista: "",
+      pedido: "",
     },
     cliente: {
-      nome: "Celso",
-      telefone: "(11) 9 5499-2796",
-      endereco: "Avenida Deputado Emílio Carlos",
-      nEndereco: "495",
-      cep: "02756-140",
-      bairro: "Bairro do Limão",
+      nome: "",
+      telefone: "",
+      endereco: "",
+      nEndereco: "",
+      cep: "",
+      bairro: "",
       complemento: "",
-      sinal: 50,
+      estado: "",
     },
     encomenda: {
-      entrega: new Date(2022, 11, 14),
-    },
-    pedido: {
-      peso: "2+",
-      formato: "Quadrado",
-      cor: "amarelo",
-      lateral: "Choc. ralado ao leite",
-      idade: "",
-      codigo: 42,
-      descricao: "BOLO FLORESTA NEGRA DE MORANGO",
-      qtd: 2,
-      unitario: 82,
-      observacao: "ESC : Feliz aniversário",
-    },
-    entrega: {
-      qtd: 10,
-      unitario: 1,
+      dEntrega: "",
+      hEntrega: "",
+      cor: "",
+      formato: "",
+      idade: 0,
+      lateral: "",
+      peso: 0,
+      resta: 0,
+      sinal: 0,
+      total: 0,
+      observacao: "",
+      pedidos: [
+        {
+          codigo: "",
+          item: "",
+          produto: "",
+          descricao: "",
+          qtd: 0,
+          unitario: 0,
+          vItem: 0,
+        },
+      ],
     },
   } as RegistroEncomendaProps);
 
+  async function fetchNewEncomenda(codigoEncomenda: string) {
+    const { data } = await api.get(
+      `/api/encomendas/encomenda/${codigoEncomenda}`
+    );
+
+    const dadosEncomenda = data.data as apiEncomendaAtt;
+
+    setRegistroEncomendaProps({
+      ...registroEncomendaProps,
+      cliente: {
+        nome: dadosEncomenda.cliente.trim(),
+        telefone: dadosEncomenda.telefone,
+        bairro: dadosEncomenda.bairro,
+        cep: dadosEncomenda.cep,
+        complemento: dadosEncomenda.complemento,
+        nEndereco: dadosEncomenda.endereco.split(",")[1],
+        endereco: dadosEncomenda.endereco,
+      },
+      encomenda: {
+        cor: dadosEncomenda.cor,
+        dEntrega: dadosEncomenda.dEntrega,
+        formato: dadosEncomenda.formato,
+        idade: dadosEncomenda.idade,
+        hEntrega: dadosEncomenda.hEntrega,
+        lateral: dadosEncomenda.lateral,
+        observacao: dadosEncomenda.observacao,
+        pedidos: dadosEncomenda.pedidos,
+        peso: dadosEncomenda.peso,
+        sinal: dadosEncomenda.sinal,
+        resta: dadosEncomenda.resta,
+        total: dadosEncomenda.total,
+      },
+      registro: {
+        encomendado: dadosEncomenda.dPedido,
+        balconista: dadosEncomenda.balconista.trim(),
+        pedido: dadosEncomenda.codigo,
+      },
+    });
+  }
+
   return (
     <RegistroEncomendaContext.Provider
-      value={{ registroEncomendaProps, setRegistroEncomendaProps }}
+      value={{
+        registroEncomendaProps,
+        setRegistroEncomendaProps,
+        fetchNewEncomenda,
+        resetForm() {
+          setRegistroEncomendaProps({
+            cadastroContext: {
+              dateSelected: "",
+              codigoEncomenda: "",
+              clienteAutoComplete: {
+                nome: "",
+                telefone: "",
+                endereco: "",
+                nEndereco: "",
+                cep: "",
+                bairro: "",
+                complemento: "",
+              },
+            },
+            registro: {
+              encomendado: "",
+              balconista: "",
+              pedido: "",
+            },
+            cliente: {
+              nome: "",
+              telefone: "",
+              endereco: "",
+              nEndereco: "",
+              cep: "",
+              bairro: "",
+              complemento: "",
+            },
+            encomenda: {
+              dEntrega: "",
+              hEntrega: "",
+              cor: "",
+              formato: "",
+              idade: 0,
+              lateral: "",
+              peso: 0,
+              resta: 0,
+              sinal: 0,
+              total: 0,
+              observacao: "",
+              pedidos: [
+                {
+                  codigo: "",
+                  item: "",
+                  produto: "",
+                  descricao: "",
+                  qtd: 0,
+                  unitario: 0,
+                  vItem: 0,
+                },
+              ],
+            },
+          });
+        },
+      }}
     >
       {children}
     </RegistroEncomendaContext.Provider>

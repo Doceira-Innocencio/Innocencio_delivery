@@ -57,6 +57,10 @@ export class PrismaEncomendaRepository implements EncomendaRepository {
 	  encomendas.ZM_LATERAL,
 	  encomendas.ZM_IDADE,
 	  encomendas.ZM_CLIENTE ,
+    encomendas.ZM_VLRTOT,
+    encomendas.ZM_SINAL,
+    encomendas.ZM_RESTA,
+    encomendas.ZM_OBS,
 	  clientes.ZR_CODIGO ,
 	  clientes.ZR_NOME,
 	  clientes.ZR_END1,
@@ -92,7 +96,19 @@ export class PrismaEncomendaRepository implements EncomendaRepository {
     ZN_PEDIDO = '${codigo}'
   ORDER BY ZN_ITEM `;
 
-    const pedidosEncomenda = (await prisma.$queryRawUnsafe(query)) as Pedido[];
+    const pedidosEncomenda = (
+      await prisma.$queryRawUnsafe<Pedido[]>(query)
+    ).map((pedido) => {
+      return {
+        codigo: pedido.ZN_PEDIDO,
+        item: pedido.ZN_ITEM,
+        produto: pedido.ZN_PRODUTO,
+        descricao: pedido.ZN_DESCRI,
+        qtd: pedido.ZN_QUANT,
+        unitario: pedido.ZN_VRUNIT,
+        vItem: pedido.ZN_VLRITEM,
+      };
+    });
 
     encomenda["pedidos"] = pedidosEncomenda;
 
@@ -341,5 +357,62 @@ export class PrismaEncomendaRepository implements EncomendaRepository {
   ;`;
 
     await prisma.$queryRawUnsafe(query);
+  }
+
+  async getCodigo(filial: string) {
+    const unidade = filial == "01" ? "I6" : "I7";
+    const query = `SELECT * FROM SX5010 WHERE X5_TABELA  = '${unidade}' AND X5_DESCRI not like '%#%' AND CONVERT(INT, X5_CHAVE) BETWEEN 0 AND 10 ORDER BY CONVERT(INT, X5_DESCRI) ASC;`;
+
+    const [{ X5_DESCRI }] = (await prisma.$queryRawUnsafe(query)) as any;
+
+    return X5_DESCRI.trim();
+  }
+
+  async lockCodigo(filial: string, codigo: string) {
+    const unidade = filial == "01" ? "I6" : "I7";
+    const query = `UPDATE SX5010 SET X5_DESCRI = 
+    '${codigo}#' WHERE X5_TABELA='${unidade}' AND X5_DESCRI = '${codigo}';`;
+
+    (await prisma.$queryRawUnsafe(query)) as any;
+  }
+
+  async releaseCodigo(filial: string, codigo: string) {
+    const unidade = filial == "01" ? "I6" : "I7";
+    const query = `UPDATE SX5010 SET X5_DESCRI = '${codigo}' WHERE X5_TABELA='${unidade}'AND X5_DESCRI = '${codigo}#';`;
+
+    (await prisma.$queryRawUnsafe(query)) as any;
+  }
+
+  async finishCodigo(filial: string, codigo: string) {
+    const unidade = filial == "01" ? "I6" : "I7";
+    let query = `SELECT TOP 1 * FROM SX5010 WHERE  X5_TABELA='${unidade}' ORDER BY X5_DESCRI desc`;
+
+    const [{ X5_CHAVE, X5_DESCRI }] = (await prisma.$queryRawUnsafe(
+      query
+    )) as any;
+
+    query = `UPDATE SX5010 
+    SET X5_CHAVE = '${parseInt(X5_CHAVE) + 1}' ,
+     X5_DESCRI = '${
+       parseInt(X5_DESCRI) + 1
+     }' WHERE X5_TABELA='${unidade}' and X5_DESCRI = '${codigo}#';`;
+
+    (await prisma.$queryRawUnsafe(query)) as any;
+  }
+
+  async findBalconista(nome: string) {
+    const query = `
+    SELECT TOP 1 A3_COD ,A3_NOME, A3_NREDUZ  FROM SA3010  WHERE A3_COD like '%${nome}'
+    `;
+
+    const [{ A3_COD, A3_NOME, A3_NREDUZ }] = (await prisma.$queryRawUnsafe(
+      query
+    )) as any;
+
+    return {
+      codigo: A3_COD,
+      nome: A3_NOME,
+      nReduz: A3_NREDUZ,
+    };
   }
 }

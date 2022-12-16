@@ -4,12 +4,20 @@ interface DropDownInput {
   id?: string;
   opcoes: string[];
   placeholder: string;
+  value: string;
+  onKeyDown: () => void;
+  onChange: () => void;
+  onBlur: () => void;
 }
 
 export default function DropDownInput({
   id,
   opcoes,
   placeholder,
+  value,
+  onChange,
+  onKeyDown,
+  onBlur,
 }: DropDownInput) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
@@ -26,24 +34,64 @@ export default function DropDownInput({
         id={id}
         placeholder=" "
         type="text"
+        onBlur={onBlur}
         className="dropDownHeader"
-        onChange={(e) => {
-          setSelectedOption(e.target.value);
-        }}
-        value={selectedOption}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        value={value}
         autoComplete="off"
         onClick={toggling}
       />
       {isOpen && (
         <div className="dropDownListContainer">
           <ul className="dropDownList">
-            {opcoes.map((opcao) => (
+            {opcoes.map((opcao, i) => (
               <li
                 className="listItem"
-                onClick={onOptionClicked(opcao)}
+                id={`nome_${i}`}
+                onMouseOver={() => {
+                  document.getElementById("nome");
+                  document.getElementById("telefone")!.placeholder =
+                    opcao.telefone;
+
+                  document.getElementById("endereco")!.placeholder =
+                    opcao.endereco;
+                  document.getElementById("numero")!.placeholder = opcao.numero;
+
+                  document.getElementById("cep")!.placeholder = opcao.cep;
+
+                  document.getElementById("bairro")!.placeholder = opcao.bairro;
+
+                  document.getElementById("complemento")!.placeholder =
+                    opcao.complemento;
+                }}
+                onMouseLeave={() => {
+                  {
+                    document.getElementById("nome");
+                    document.getElementById("telefone")!.placeholder = "";
+
+                    document.getElementById("endereco")!.placeholder = "";
+                    document.getElementById("numero")!.placeholder = "";
+
+                    document.getElementById("cep")!.placeholder = "";
+
+                    document.getElementById("bairro")!.placeholder = "";
+
+                    document.getElementById("complemento")!.placeholder = "";
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Arrow Down") {
+                    if (document.getElementById(`nome_${i + 1}`)) {
+                      document.getElementById(`nome_${i + 1}`)?.focus();
+                    } else {
+                      document.getElementById(`nome_0`)?.focus();
+                    }
+                  }
+                }}
                 key={Math.random()}
               >
-                {opcao}
+                {opcao.nome}
               </li>
             ))}
           </ul>

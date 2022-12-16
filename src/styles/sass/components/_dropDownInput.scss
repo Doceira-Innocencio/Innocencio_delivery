@@ -55,7 +55,8 @@
         border-bottom: solid 0.3px rgb(124, 124, 124);
         transition: all 0.2s;
 
-        &:hover {
+        &:hover,
+        &:focus {
           background-color: var(--accent-hover-color);
           color: white;
         }

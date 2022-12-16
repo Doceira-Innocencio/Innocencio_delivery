@@ -19,3 +19,16 @@
     transform: translate(0px, 0px);
   }
 }
+
+@keyframes slideSideReverse {
+  0% {
+    opacity: 100%;
+    transform: translate(0px, 0px);
+  }
+
+  100% {
+    opacity: 0%;
+    transform: translate(-20px, 0px);
+    visibility: hidden;
+  }
+}

@@ -1,6 +1,5 @@
 .fichaContainer {
   width: 60rem;
-  margin: 5rem;
   font-family: "arial";
   font-weight: 400;
 
@@ -67,6 +66,10 @@
   .fichaEncomendaData {
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;
+
+    .inputData {
+      position: relative;
+    }
 
     input {
       text-align: center;
