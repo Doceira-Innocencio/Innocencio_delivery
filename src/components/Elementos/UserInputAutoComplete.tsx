@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { RegistroEncomendaContext } from "../../contexts/RegistroEncomendaContext";
 import { api } from "../../util/api";
 import DropDownInput from "./form/DropDownInput";
 
@@ -11,16 +12,17 @@ interface UserInputAutoComplete {
   onBlur: () => void;
 }
 
+const state: onChangeDateTypingTimeout = {
+  typingTimeout: 0,
+};
+
 export default function UserInputAutoComplete({
   value,
   onBlur,
 }: UserInputAutoComplete) {
   const [nome, setNome] = useState("");
   const [opcoes, setOpcoes] = useState([]);
-
-  const state: onChangeDateTypingTimeout = {
-    typingTimeout: 0,
-  };
+  const { registroEncomendaProps } = useContext(RegistroEncomendaContext);
 
   useEffect(() => {
     if (!nome) {
@@ -47,8 +49,12 @@ export default function UserInputAutoComplete({
           })
         );
       });
-    }, 500);
+    }, 350);
   }, [nome]);
+
+  useEffect(() => {
+    setNome(registroEncomendaProps.cliente.nome);
+  }, [registroEncomendaProps.cliente.nome]);
 
   return (
     <DropDownInput
@@ -59,14 +65,15 @@ export default function UserInputAutoComplete({
         setNome(e.target.value);
       }}
       onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          document.getElementById("telefone")?.focus();
+        if (e.key == "Enter" || e.key == "Tab") {
+          e.preventDefault();
+          document.getElementById(`telefone`)?.focus();
         }
 
         if (e.key === "ArrowDown") {
           e.preventDefault();
-          console.log("sim");
-          document.getElementById("nome_0")?.focus();
+          const element = document.querySelector(".item_0");
+          element?.focus();
         }
       }}
       value={nome}

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { RegistroEncomendaContext } from "../../../contexts/RegistroEncomendaContext";
 
 interface DropDownInput {
   id?: string;
@@ -22,35 +23,65 @@ export default function DropDownInput({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [onCloseTimeout, setOnCloseTimeout] = useState(false);
-  const toggling = () => setIsOpen(!isOpen);
 
-  const onOptionClicked = (value: string) => () => {
-    setSelectedOption(value);
-    setIsOpen(false);
-  };
+  const { setRegistroEncomendaProps, registroEncomendaProps } = useContext(
+    RegistroEncomendaContext
+  );
+
   return (
     <div className="dropDownContainer">
       <input
         id={id}
         placeholder=" "
         type="text"
-        onBlur={onBlur}
+        onBlur={(e) => {
+          onBlur(e);
+        }}
         className="dropDownHeader"
-        onChange={onChange}
+        onChange={(e) => {
+          if (isOpen) {
+          } else {
+            setIsOpen(true);
+          }
+          onChange(e);
+        }}
         onKeyDown={onKeyDown}
         value={value}
         autoComplete="off"
-        onClick={toggling}
       />
       {isOpen && (
         <div className="dropDownListContainer">
           <ul className="dropDownList">
             {opcoes.map((opcao, i) => (
-              <li
-                className="listItem"
+              <button
+                className={`listItem item_${i}`}
                 id={`nome_${i}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  console.log(opcao);
+                  setRegistroEncomendaProps({
+                    ...registroEncomendaProps,
+                    cadastroContext: {
+                      ...registroEncomendaProps.cadastroContext,
+                      idClienteAutoComplete: opcao.codigo,
+                    },
+                    cliente: {
+                      ...registroEncomendaProps.cliente,
+                      nome: opcao.nome,
+                      telefone: opcao.telefone,
+                      endereco: opcao.endereco,
+                      nEndereco: opcao.endereco.split(",")[1],
+                      cep: opcao.cep,
+                      bairro: opcao.bairro,
+                      complemento: opcao.complemento,
+                      distancia: opcao.distancia,
+                      estado: opcao.estado,
+                    },
+                  });
+                  setIsOpen(false);
+                  document.getElementById("dEntrega")?.focus();
+                }}
                 onMouseOver={() => {
-                  document.getElementById("nome");
                   document.getElementById("telefone")!.placeholder =
                     opcao.telefone;
 
@@ -67,7 +98,6 @@ export default function DropDownInput({
                 }}
                 onMouseLeave={() => {
                   {
-                    document.getElementById("nome");
                     document.getElementById("telefone")!.placeholder = "";
 
                     document.getElementById("endereco")!.placeholder = "";
@@ -91,8 +121,8 @@ export default function DropDownInput({
                 }}
                 key={Math.random()}
               >
-                {opcao.nome}
-              </li>
+                {opcao.nome} ({opcao.telefone})
+              </button>
             ))}
           </ul>
         </div>

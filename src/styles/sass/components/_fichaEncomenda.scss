@@ -9,9 +9,16 @@
   }
 
   input {
+    outline: none;
     padding: 0.3rem;
     width: 100%;
     border: 0.5px solid #828282;
+    transition: all 0.3s;
+
+    &:focus {
+      background-color: var(--brand-color);
+      color: white;
+    }
   }
 
   h1:first-child {
@@ -197,6 +204,8 @@
     border-right: 1px solid #828282;
     border-left: 1px solid #828282;
     textarea {
+      transition: all 0.3s;
+      outline: none;
       padding: 1rem;
       font: inherit;
       font-size: 1.3rem;
@@ -205,6 +214,11 @@
       resize: none;
       border: none;
       border-top: 1px solid #828282;
+
+      &:focus {
+        background-color: var(--brand-color);
+        color: white;
+      }
     }
   }
 

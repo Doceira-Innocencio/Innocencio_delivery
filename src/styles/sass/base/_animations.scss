@@ -32,3 +32,13 @@
     visibility: hidden;
   }
 }
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 20px 3px var(--brand-color);
+  }
+
+  100% {
+    box-shadow: 0 0 10px 0px var(--brand-color);
+  }
+}

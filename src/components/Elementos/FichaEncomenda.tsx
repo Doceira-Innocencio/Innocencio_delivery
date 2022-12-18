@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import { RegistroEncomendaContext } from "../../contexts/RegistroEncomendaContext";
 import { SectionContext } from "../../contexts/SectionsContext";
 import { api } from "../../util/api";
@@ -79,6 +79,44 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
     },
   ] as listaPedidosProps);
 
+  function checkDeliverTax() {
+    const index = pedidos.findIndex((pedido) => pedido?.produto === "00198");
+
+    if (index >= 0) {
+      pedidos[index] = {
+        item: "",
+        produto: "",
+        descricao: "",
+        qtd: 0,
+        unitario: 0,
+        total: 0,
+      };
+      toast.dismiss();
+    }
+  }
+
+  function testAddTax() {
+    const e: any = document.getElementById("entrega");
+    if (e.checked) {
+      setRegistroEncomendaProps({
+        ...registroEncomendaProps,
+        encomenda: {
+          ...registroEncomendaProps.encomenda,
+          entrega: "00",
+        },
+      });
+    } else {
+      setRegistroEncomendaProps({
+        ...registroEncomendaProps,
+        encomenda: {
+          ...registroEncomendaProps.encomenda,
+          entrega: sectionProps.filial,
+        },
+      });
+    }
+    checkDeliverTax();
+  }
+
   async function brindProducts(value: string | number, index: number) {
     if (value) {
       const result = await api.get(`/api/produto/${zeroFill(value, 5)}`);
@@ -130,7 +168,11 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
     }
   }
 
-  function addDeliverTax(data) {
+  function addDeliverTax(data, distance, value) {
+    if (pedidos.find((pedido) => pedido.produto == "00198")) {
+      return;
+    }
+
     const index = pedidos.findIndex((pedido) => !pedido.produto);
 
     setPedidos(
@@ -149,6 +191,8 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
             }
       )
     );
+
+    toast.info(`Aplicando taxa de entrega para ${distance} | ${value}`);
   }
 
   async function bringAddress(value: string) {
@@ -204,7 +248,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
           });
 
           if (distance.value > 8000) {
-            toast.error("mais de 7KM de distância");
+            toast.error("mais de 8KM de distância");
             setRegistroEncomendaProps({
               ...registroEncomendaProps,
               encomenda: {
@@ -215,68 +259,117 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
           }
 
           if (distance.value > 7100 && distance.value < 8000) {
-            addDeliverTax({
-              codigo: "198",
-              descricao: "TAXA DE ENTREGA",
-              quantidade: distance.value / 100,
-              unitario: 1,
-            });
-            toast.error(`Taxa de entrega para ${distance.text} | R$ 20,00`);
+            addDeliverTax(
+              {
+                codigo: "00198",
+                descricao: "TAXA DE ENTREGA",
+                quantidade: distance.value / 100,
+                unitario: 1,
+              },
+              distance.text,
+              "R$ 20,00"
+            );
           }
 
           if (distance.value > 6100 && distance.value < 7000) {
-            addDeliverTax({
-              codigo: "198",
-              descricao: "TAXA DE ENTREGA",
-              quantidade: distance.value / 100,
-              unitario: 1,
-            });
-            toast.warn(`Taxa de entrega para ${distance.text} | R$ 17,00`);
+            addDeliverTax(
+              {
+                codigo: "00198",
+                descricao: "TAXA DE ENTREGA",
+                quantidade: distance.value / 100,
+                unitario: 1,
+              },
+              distance.text,
+              "R$ 17,00"
+            );
           }
 
           if (distance.value > 5100 && distance.value < 6000) {
-            addDeliverTax({
-              codigo: "198",
-              descricao: "TAXA DE ENTREGA",
-              quantidade: distance.value / 100,
-              unitario: 1,
-            });
-            toast.warn(`Taxa de entrega para ${distance.text} | R$ 15,00`);
+            addDeliverTax(
+              {
+                codigo: "00198",
+                descricao: "TAXA DE ENTREGA",
+                quantidade: distance.value / 100,
+                unitario: 1,
+              },
+              distance.text,
+              "R$ 15,00"
+            );
           }
 
           if (distance.value > 4100 && distance.value < 5000) {
-            addDeliverTax({
-              codigo: "198",
-              descricao: "TAXA DE ENTREGA",
-              quantidade: distance.value / 100,
-              unitario: 1,
-            });
-            toast.warn(`Taxa de entrega para ${distance.text} | R$ 12,00`);
+            addDeliverTax(
+              {
+                codigo: "00198",
+                descricao: "TAXA DE ENTREGA",
+                quantidade: distance.value / 100,
+                unitario: 1,
+              },
+              distance.text,
+              "R$ 12,00"
+            );
           }
 
           if (distance.value > 2600 && distance.value < 4000) {
-            addDeliverTax({
-              codigo: "198",
-              descricao: "TAXA DE ENTREGA",
-              quantidade: distance.value / 100,
-              unitario: 1,
-            });
-            toast.warn(`Taxa de entrega para ${distance.text} | R$ 10,00`);
+            addDeliverTax(
+              {
+                codigo: "00198",
+                descricao: "TAXA DE ENTREGA",
+                quantidade: distance.value / 100,
+                unitario: 1,
+              },
+              distance.text,
+              "R$ 10,00"
+            );
           }
 
           if (distance.value > 0 && distance.value < 2500) {
-            addDeliverTax({
-              codigo: "198",
-              descricao: "TAXA DE ENTREGA",
-              quantidade: distance.value / 100,
-              unitario: 1,
-            });
-            toast.warn(`Taxa de entrega para ${distance.text} | R$ 10,00`);
+            addDeliverTax(
+              {
+                codigo: "00198",
+                descricao: "TAXA DE ENTREGA",
+                quantidade: distance.value / 100,
+                unitario: 1,
+              },
+              distance.text,
+              "R$ 7,00"
+            );
           }
         });
       }
     }
   }, [registroEncomendaProps.encomenda.entrega]);
+
+  useEffect(() => {
+    const fetchData = async () =>
+      new Promise(async (resolve, reject) => {
+        try {
+          const result = await api.get(`/api/encomendas/`);
+          resolve(result);
+        } catch (err) {
+          reject(err);
+        }
+      });
+
+    fetchData().then((data) => {
+      const encomendas = data.data.data.encomendas.map((encomenda) => {
+        const year = encomenda.slice(0, 4);
+        const month = encomenda.slice(4, 6);
+        const day = encomenda.slice(6, 8);
+        return new Date(`${year}/${month}/${day}`).toDateString();
+      });
+
+      if (encomendas) {
+        setRegistroEncomendaProps({
+          ...registroEncomendaProps,
+          cadastroContext: {
+            ...registroEncomendaProps.cadastroContext,
+            listDatasEncomendas: encomendas,
+          },
+        });
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -833,6 +926,12 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                 registroEncomendaProps.cadastroContext.clienteAutoComplete
                   ?.nEndereco
               }
+              onKeyDown={(e) => {
+                if (e.key == "Enter" || e.key == "Tab") {
+                  e.preventDefault();
+                  document.getElementById("balconista")?.focus();
+                }
+              }}
               onChange={(e) => {
                 setRegistroEncomendaProps({
                   ...registroEncomendaProps,
@@ -861,7 +960,10 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               disabled={
                 registroEncomendaProps.cadastroContext.clienteAutoComplete?.cep
               }
-              onBlur={(e) => bringAddress(e.target.value)}
+              onBlur={(e) => {
+                bringAddress(e.target.value);
+                testAddTax();
+              }}
               onFocus={(e) => {
                 setRegistroEncomendaProps({
                   ...registroEncomendaProps,
@@ -885,7 +987,8 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               }}
               onKeyDown={(e) => {
                 if (e.key == "Enter" || e.key == "Tab") {
-                  document.getElementById("complemento")?.focus();
+                  e.preventDefault();
+                  document.getElementById("numero")?.focus();
                 }
               }}
               value={registroEncomendaProps.cliente.cep}
@@ -972,24 +1075,8 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
             <input
               id="entrega"
               name="entrega"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setRegistroEncomendaProps({
-                    ...registroEncomendaProps,
-                    encomenda: {
-                      ...registroEncomendaProps.encomenda,
-                      entrega: "00",
-                    },
-                  });
-                } else {
-                  setRegistroEncomendaProps({
-                    ...registroEncomendaProps,
-                    encomenda: {
-                      ...registroEncomendaProps.encomenda,
-                      entrega: sectionProps.filial,
-                    },
-                  });
-                }
+              onChange={() => {
+                testAddTax();
               }}
               value={!registroEncomendaProps.encomenda.entrega}
               type={"checkbox"}

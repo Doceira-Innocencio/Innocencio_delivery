@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { RegistroEncomendaContext } from "../../contexts/RegistroEncomendaContext";
 import { api } from "../../util/api";
 import DropDownInput from "./form/DropDownInput";
 
@@ -10,16 +11,16 @@ interface TelefoneInputAutoCompleteProps {
   value: string;
 }
 
+const state: onChangeDateTypingTimeout = {
+  typingTimeout: 0,
+};
 export default function TelefoneInputAutoComplete({
   value,
   onBlur,
 }: TelefoneInputAutoCompleteProps) {
   const [telefone, setTelefone] = useState("");
   const [opcoes, setOpcoes] = useState([]);
-
-  const state: onChangeDateTypingTimeout = {
-    typingTimeout: 0,
-  };
+  const { registroEncomendaProps } = useContext(RegistroEncomendaContext);
 
   useEffect(() => {
     if (!telefone) {
@@ -34,7 +35,7 @@ export default function TelefoneInputAutoComplete({
             return {
               codigo: cliente.codigo,
               nome: cliente.nome,
-              telefone: cliente.cep,
+              telefone: cliente.telefone,
               endereco: cliente.endereco.split(",")[0],
               numero: cliente.endereco.split(",")[1],
               cep: cliente.cep,
@@ -44,8 +45,12 @@ export default function TelefoneInputAutoComplete({
           })
         );
       });
-    }, 500);
+    }, 350);
   }, [telefone]);
+
+  useEffect(() => {
+    setTelefone(registroEncomendaProps.cliente.telefone);
+  }, [registroEncomendaProps.cliente.telefone]);
 
   return (
     <DropDownInput
@@ -60,7 +65,6 @@ export default function TelefoneInputAutoComplete({
           document.getElementById("dEntrega")?.focus();
         }
       }}
-      // value={!telefone && value}
       value={telefone}
     />
   );

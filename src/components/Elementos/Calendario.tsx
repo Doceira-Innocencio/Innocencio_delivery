@@ -11,10 +11,6 @@ export default function Calendario({ open }: CalendarioProps) {
     RegistroEncomendaContext
   );
 
-  const dates = [
-    new Date("2022-12-24").toDateString(),
-    new Date("2022-12-25").toDateString(),
-  ];
   return (
     <div className={`calendarioContainer ${!open && "blur"}`}>
       <Calendar
@@ -22,22 +18,17 @@ export default function Calendario({ open }: CalendarioProps) {
         onClickDay={(date) => {
           setRegistroEncomendaProps({
             ...registroEncomendaProps,
+            encomenda: {
+              ...registroEncomendaProps.encomenda,
+              dEntrega: date,
+            },
             cadastroContext: {
-              codigoEncomenda:
-                registroEncomendaProps.cadastroContext.codigoEncomenda,
+              ...registroEncomendaProps.cadastroContext,
               dateSelected: date
                 .toLocaleDateString("en-GB")
                 .split("/")
                 .reverse()
                 .join(""),
-            },
-          });
-
-          setRegistroEncomendaProps({
-            ...registroEncomendaProps,
-            encomenda: {
-              ...registroEncomendaProps.encomenda,
-              dEntrega: date,
             },
           });
 
@@ -55,7 +46,11 @@ export default function Calendario({ open }: CalendarioProps) {
           if (view === "month" && date.getDay() === 1) {
             return "fechado";
           } else {
-            if (dates.includes(date.toDateString())) {
+            if (
+              registroEncomendaProps.cadastroContext.listDatasEncomendas?.includes(
+                date.toDateString()
+              )
+            ) {
               return "spot";
             }
             return null;

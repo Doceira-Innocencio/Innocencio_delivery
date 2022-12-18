@@ -18,19 +18,11 @@ interface RegistroEncomendaProviderProps {
 
 interface RegistroEncomendaProps {
   cadastroContext: {
+    listDatasEncomendas: string[];
     dateSelected: string;
     codigoEncomenda: string;
     concluivel: boolean;
-    clienteAutoComplete: {
-      nome: string;
-      telefone: string;
-      endereco: string;
-      nEndereco: string;
-      cep: string;
-      bairro: string;
-      complemento: string;
-      estado: string;
-    };
+    idClienteAutoComplete: string;
   };
   registro: {
     encomendado: Date | string;
@@ -224,15 +216,7 @@ export function RegistroEncomendaProvider({
             cadastroContext: {
               dateSelected: "",
               codigoEncomenda: "",
-              clienteAutoComplete: {
-                nome: "",
-                telefone: "",
-                endereco: "",
-                nEndereco: "",
-                cep: "",
-                bairro: "",
-                complemento: "",
-              },
+              idClienteAutoComplete: "",
             },
             registro: {
               encomendado: "",

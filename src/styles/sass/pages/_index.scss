@@ -67,6 +67,22 @@ main {
           color: white;
           background-color: var(--blue-light);
         }
+
+        &.finalizar {
+          animation-name: glowing;
+          animation-duration: 1s;
+          animation-fill-mode: both;
+          animation-direction: alternate-reverse;
+          animation-iteration-count: infinite;
+
+          color: white;
+          background-color: var(--brand-color);
+          transition: all 0.2s;
+
+          &:active {
+            transform: translate(0px, 3px);
+          }
+        }
       }
     }
   }
