@@ -91,6 +91,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
         unitario: 0,
         total: 0,
       };
+      setPedidos(pedidos);
       toast.dismiss();
     }
   }
@@ -263,7 +264,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               {
                 codigo: "00198",
                 descricao: "TAXA DE ENTREGA",
-                quantidade: distance.value / 100,
+                quantidade: 20,
                 unitario: 1,
               },
               distance.text,
@@ -276,7 +277,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               {
                 codigo: "00198",
                 descricao: "TAXA DE ENTREGA",
-                quantidade: distance.value / 100,
+                quantidade: 17,
                 unitario: 1,
               },
               distance.text,
@@ -289,7 +290,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               {
                 codigo: "00198",
                 descricao: "TAXA DE ENTREGA",
-                quantidade: distance.value / 100,
+                quantidade: 15,
                 unitario: 1,
               },
               distance.text,
@@ -302,7 +303,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               {
                 codigo: "00198",
                 descricao: "TAXA DE ENTREGA",
-                quantidade: distance.value / 100,
+                quantidade: 12,
                 unitario: 1,
               },
               distance.text,
@@ -315,7 +316,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               {
                 codigo: "00198",
                 descricao: "TAXA DE ENTREGA",
-                quantidade: distance.value / 100,
+                quantidade: 10,
                 unitario: 1,
               },
               distance.text,
@@ -328,7 +329,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               {
                 codigo: "00198",
                 descricao: "TAXA DE ENTREGA",
-                quantidade: distance.value / 100,
+                quantidade: 7,
                 unitario: 1,
               },
               distance.text,
@@ -496,7 +497,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
           </div>
           <div>
             <h1>Formato</h1>
-            <input
+            <select
               type="text"
               onBlur={(e) => {
                 setRegistroEncomendaProps({
@@ -517,11 +518,16 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                 });
               }}
               value={registroEncomendaProps.encomenda.formato}
-            />
+            >
+              <option selected="selected" value=""></option>
+              <option value="Redondo">Redondo</option>
+              <option value="Quadrado">Quadrado</option>
+              <option value="Outros">Outros</option>
+            </select>
           </div>
           <div>
             <h1>Cor</h1>
-            <input
+            <select
               type="text"
               onBlur={(e) => {
                 setRegistroEncomendaProps({
@@ -542,11 +548,17 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                 });
               }}
               value={registroEncomendaProps.encomenda.cor}
-            />
+            >
+              <option selected="selected" value=""></option>
+              <option value="Azul">Azul</option>
+              <option value="Amarelo">Amarelo</option>
+              <option value="Rosa">Rosa</option>
+              <option value="Outros">Outros</option>
+            </select>
           </div>
           <div>
             <h1>Lateral</h1>
-            <input
+            <select
               type="text"
               onBlur={(e) => {
                 setRegistroEncomendaProps({
@@ -567,7 +579,16 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                 });
               }}
               value={registroEncomendaProps.encomenda.lateral}
-            />
+            >
+              <option selected="selected" value=""></option>
+              <option value="Choc. Ralado ao Leite">
+                Choc. Ralado ao Leite
+              </option>
+              <option value="Choc. Ralado Branco">Choc. Ralado Branco</option>
+              <option value="Coco">Coco</option>
+              <option value="Amendoim">Amendoim</option>
+              <option value="Outros">Outros</option>
+            </select>
           </div>
           <div>
             <h1>Idade</h1>
@@ -647,20 +668,32 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                         <input disabled type="text" value={pedido.descricao} />
                       </td>
                       <td>
-                        <input type="text" value={pedido.qtd.toFixed(2)} />
-                      </td>
-                      <td>
                         <input
-                          disabled
                           type="text"
-                          value={pedido.unitario.toFixed(2)}
+                          onBlur={(e) => {
+                            e.target.value.toFixed(2);
+                          }}
+                          value={pedido.qtd.toFixed(2)}
                         />
                       </td>
                       <td>
                         <input
                           disabled
                           type="text"
-                          value={pedido.vItem.toFixed(2)}
+                          onBlur={(e) => {
+                            e.target.value.toFixed(2);
+                          }}
+                          value={pedido.unitario}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          disabled
+                          type="text"
+                          onBlur={(e) => {
+                            e.target.value.toFixed(2);
+                          }}
+                          value={pedido.vItem}
                         />
                       </td>
                     </tr>
@@ -693,9 +726,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                           }}
                           onKeyDown={(e) => {
                             if (e.key === "Enter" && e.ctrlKey) {
-                              return !document
-                                .getElementById(`observacao`)
-                                ?.focus();
+                              return !document.getElementById(`sinal`)?.focus();
                             }
                             if (e.key == "Enter" || e.key == "Tab") {
                               e.preventDefault();
@@ -735,9 +766,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                           }}
                           onKeyDown={(e) => {
                             if (e.key === "Enter" && e.ctrlKey) {
-                              return !document
-                                .getElementById(`observacao`)
-                                ?.focus();
+                              return !document.getElementById(`sinal`)?.focus();
                             }
                             if (e.key == "Enter" || e.key == "Tab") {
                               e.preventDefault();
@@ -767,6 +796,9 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                             }
                           }}
                           onBlur={(e) => {
+                            e.target.value = parseFloat(e.target.value).toFixed(
+                              2
+                            );
                             setPedidos(
                               pedidos.map((pedidosArray, index) =>
                                 index == i
@@ -802,17 +834,17 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                               )
                             );
                           }}
-                          value={pedidos[i]?.unitario}
+                          value={pedidos[i]?.unitario.toFixed(2)}
                         />
                       </td>
                       <td>
                         <input
                           disabled
                           type="text"
-                          value={
+                          value={(
                             parseFloat(pedidos[i]?.unitario) *
                             parseFloat(pedidos[i]?.qtd)
-                          }
+                          ).toFixed(2)}
                         />
                       </td>
                     </tr>
@@ -843,7 +875,25 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               <tr>
                 <th>Sinal</th>
                 <td>
-                  <input id="sinal" type="number" defaultValue={0.0} />
+                  <input
+                    id="sinal"
+                    type="number"
+                    onKeyDown={(e) => {
+                      if (e.key == "Enter" || e.key == "Tab") {
+                        e.preventDefault();
+                        document.getElementById("observacao")?.focus();
+                      }
+                    }}
+                    onChange={(e) => {
+                      setRegistroEncomendaProps({
+                        ...registroEncomendaProps,
+                        encomenda: {
+                          sinal: e.target.value,
+                        },
+                      });
+                    }}
+                    value={registroEncomendaProps.encomenda.sinal}
+                  />
                 </td>
               </tr>
               <tr>

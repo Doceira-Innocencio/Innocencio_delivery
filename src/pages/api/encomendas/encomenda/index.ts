@@ -33,10 +33,9 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
   } = req.body;
 
   if (!codCliente) {
-    await usuarioDb.createOne({
+    await usuarioDb.createOne(filial, {
       ZR_BAIRRO1: cliente.bairro,
       ZR_CEP1: cliente.cep,
-      ZR_CODIGO: cliente.codigo,
       ZR_DISTANC: cliente.distancia,
       ZR_COMPL1: cliente.complemento,
       ZR_END1: cliente.endereco,
@@ -46,7 +45,7 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
       ZR_NOME: cliente.nome,
       ZR_TEL: cliente.telefone,
     });
-
+    const teste = new Date();
     await encomendaDb.createEncomenda(
       {
         ZM_FILIAL: filial,
@@ -66,8 +65,12 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
         ZM_RESTA: resta,
         ZM_OBS: observacao,
         ZM_FENTR: entrega,
-        ZM_DPEDID: "20221212",
-        ZM_HPEDID: "16:00",
+        ZM_DPEDID: data
+          .toLocaleDateString("en-GB")
+          .split("/")
+          .reverse()
+          .join(""),
+        ZM_HPEDID: `${teste.getHours()}:${teste.getMinutes()}`,
         ZM_VEND: balconista,
       },
       pedidos
@@ -92,8 +95,12 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
         ZM_RESTA: resta,
         ZM_OBS: observacao,
         ZM_FENTR: entrega,
-        ZM_DPEDID: "20221212",
-        ZM_HPEDID: "16:00",
+        ZM_DPEDID: data
+          .toLocaleDateString("en-GB")
+          .split("/")
+          .reverse()
+          .join(""),
+        ZM_HPEDID: `${teste.getHours()}:${teste.getMinutes()}`,
         ZM_VEND: balconista,
       },
       pedidos
@@ -101,7 +108,7 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   return res.status(200).json({
-    messagem: "Pega no meu ",
+    messagem: "Encomenda Criada Com Sucesso",
   });
 };
 

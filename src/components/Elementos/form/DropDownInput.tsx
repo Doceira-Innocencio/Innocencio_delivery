@@ -45,7 +45,12 @@ export default function DropDownInput({
           }
           onChange(e);
         }}
-        onKeyDown={onKeyDown}
+        onKeyDown={(e) => {
+          if (e.key == "Escape") {
+            setIsOpen(false);
+          }
+          onKeyDown(e);
+        }}
         value={value}
         autoComplete="off"
       />

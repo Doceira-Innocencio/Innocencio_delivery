@@ -2,7 +2,6 @@ import { Prohibit } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
 import { api } from "../../util/api";
 import { zeroFill } from "../../util/zeroFill";
-import { useQuery } from "react-query";
 import { RegistroEncomendaContext } from "../../contexts/RegistroEncomendaContext";
 
 interface ListaEncomendasProps {

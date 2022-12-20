@@ -22,8 +22,18 @@ export class PrismaClienteRepository implements clienteRepository {
     return cliente;
   }
 
-  async createOne(data: Cliente) {
-    const query = `
+  async createOne(filial: string, data: Cliente) {
+    let query = `
+   SELECT TOP 1
+   ZR_CODIGO 
+FROM (SELECT ZR_CODIGO from SZR010 WHERE ZR_CODIGO LIKE '${(filial = "01"
+      ? "61"
+      : "62")}%')T 
+ORDER BY CAST(ZR_CODIGO AS int) DESC   
+   `;
+    const [{ ZR_CODIGO }] = await prisma.$queryRawUnsafe(query);
+
+    query = `
     INSERT INTO SZR010  
 	(
 		ZR_FILIAL,
@@ -42,7 +52,7 @@ export class PrismaClienteRepository implements clienteRepository {
 	VALUES
 	(
 		'${data.ZR_FILIAL}',
-		'${data.ZR_CODIGO}',
+		'${ZR_CODIGO + 1}',
 		'${data.ZR_LOJA}',
 		'${data.ZR_NOME}',
 		'${data.ZR_END1}',

@@ -1,23 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import FichaEncomenda from "../components/Elementos/FichaEncomenda";
-import {
-  RegistroEncomendaContext,
-  RegistroEncomendaProvider,
-} from "../contexts/RegistroEncomendaContext";
+import { RegistroEncomendaContext } from "../contexts/RegistroEncomendaContext";
 import { SectionContext } from "../contexts/SectionsContext";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import ListaEncomendas from "../components/Elementos/ListaEncomenda";
 import { api } from "../util/api";
 import { toast } from "react-toastify";
 import { setCookie, destroyCookie } from "nookies";
 import Cookies from "js-cookie";
+import printFicha from "../util/pdf2print";
 
 export default function Home() {
   const { sectionProps, setSectionMode } = useContext(SectionContext);
   const { setRegistroEncomendaProps, registroEncomendaProps, resetForm } =
     useContext(RegistroEncomendaContext);
-  const doc = new jsPDF();
   const [renderForm, setRenderForm] = useState(true);
 
   function restartForm() {
@@ -36,6 +31,13 @@ export default function Home() {
       await api.put(
         `/api/encomendas/codigo/${sectionProps.filial}/release/${registroEncomendaProps.cadastroContext.codigoEncomenda}`
       );
+
+      sessionStorage
+        .getItem("ENCOMENDA.CODIGOS")
+        ?.replace(
+          registroEncomendaProps.cadastroContext.codigoEncomenda + ",",
+          ""
+        );
 
       setRegistroEncomendaProps({
         ...registroEncomendaProps,
@@ -57,6 +59,8 @@ export default function Home() {
 
     resetForm();
     restartForm();
+
+    window.onbeforeunload = function (e) {};
   }
 
   async function handleSubmitEncomenda() {
@@ -173,6 +177,8 @@ export default function Home() {
       api.put(
         `/api/encomendas/codigo/${sectionProps.filial}/finish/${registroEncomendaProps.cadastroContext.codigoEncomenda}`
       );
+
+      printFicha();
       resetForm();
       restartForm();
       setSectionMode("NOVO");
@@ -198,32 +204,72 @@ export default function Home() {
       },
     });
 
-    setCookie(undefined, "ENCOMENDA.CODIGO", response.data.codigo, {
-      maxAge: 60 * 60 * 24 * 30,
-      path: "/",
-    });
+    const listSession = sessionStorage.getItem("ENCOMENDA.CODIGOS")?.split(",");
+    const listCookies = Cookies.get("ENCOMENDA.CODIGOS")?.split(",");
+
+    if (!listCookies?.includes(response.data.codigo)) {
+      if (listSession) {
+        setCookie(
+          undefined,
+          "ENCOMENDA.CODIGOS",
+          Cookies.get("ENCOMENDA.CODIGOS") + response.data.codigo + ",",
+          {
+            maxAge: 60 * 60 * 24 * 30,
+            path: "/",
+          }
+        );
+      } else {
+        setCookie(undefined, "ENCOMENDA.CODIGOS", response.data.codigo + ",", {
+          maxAge: 60 * 60 * 24 * 30,
+          path: "/",
+        });
+      }
+    }
+
+    if (!listSession?.includes(response.data.codigo)) {
+      if (listSession) {
+        sessionStorage.setItem(
+          "ENCOMENDA.CODIGOS",
+          sessionStorage.getItem("ENCOMENDA.CODIGOS") +
+            response.data.codigo +
+            ","
+        );
+      } else {
+        sessionStorage.setItem("ENCOMENDA.CODIGOS", response.data.codigo + ",");
+      }
+    }
+
+    window.onbeforeunload = function (e) {
+      return "Por favor Cancele A Encomenda Antes de Fechar a Janela";
+    };
   }
 
   useEffect(() => {
-    const numero = Cookies.get("ENCOMENDA.CODIGO");
-    const fetchData = async () =>
-      new Promise(async (resolve, reject) => {
-        try {
-          await api.put(
-            `/api/encomendas/codigo/${sectionProps.filial}/release/${numero}`
-          );
-          resolve("ok");
-        } catch (err) {
-          reject(err);
-        }
-      });
-
-    if (numero) {
-      destroyCookie("ENCOMENDA.CODIGO");
-      fetchData()
-        .then((data) => data)
-        .catch((err) => err);
-    }
+    const codigos = Cookies.get("ENCOMENDA.CODIGOS")?.split(",");
+    const listSession = sessionStorage.getItem("ENCOMENDA.CODIGOS")?.split(",");
+    const releaseCodigos = codigos?.map((codigo) => {
+      if (!listSession?.includes(codigo)) {
+        const newCookie = Cookies.get("ENCOMENDA.CODIGOS").replace(
+          `${codigo},`,
+          ""
+        );
+        setCookie(undefined, "ENCOMENDA.CODIGOS", newCookie);
+        const fetchData = async () =>
+          new Promise(async (resolve, reject) => {
+            try {
+              await api.put(
+                `/api/encomendas/codigo/${sectionProps.filial}/release/${numero}`
+              );
+              resolve("ok");
+            } catch (err) {
+              reject(err);
+            }
+          });
+        fetchData()
+          .then((data) => data)
+          .catch((err) => err);
+      }
+    });
   }, []);
 
   return (
@@ -268,12 +314,16 @@ export default function Home() {
                 <button className="cancelar" onClick={handleCancelEncomenda}>
                   Cancelar
                 </button>
-                <button
-                  className="buscar"
-                  onClick={() => setSectionMode("BUSCA")}
-                >
-                  Buscar
-                </button>
+                {registroEncomendaProps.cadastroContext.codigoEncomenda && (
+                  <button
+                    className="Imprimir"
+                    onClick={() => {
+                      printFicha();
+                    }}
+                  >
+                    Imprimir
+                  </button>
+                )}
               </>
             )}
             {sectionProps.mode == "NOVO" && (
@@ -288,34 +338,17 @@ export default function Home() {
                   registroEncomendaProps.cliente.nEndereco &&
                   registroEncomendaProps.cliente.bairro &&
                   registroEncomendaProps.registro.balconista && (
-                    <button
-                      className="finalizar"
-                      onClick={handleSubmitEncomenda}
-                    >
-                      Finalizar
-                    </button>
+                    <>
+                      <button
+                        className="finalizar"
+                        onClick={handleSubmitEncomenda}
+                      >
+                        Finalizar
+                      </button>
+                    </>
                   )}
                 <button className="cancelar" onClick={handleCancelEncomenda}>
                   Cancelar
-                </button>
-                <button
-                  className="Imprimir"
-                  onClick={function () {
-                    const ficha = document.getElementById("ficha");
-                    // ficha?.style.fontFeatureSettings = '"Arial" 0';
-                    html2canvas(ficha, {
-                      width: 1920,
-                      height: 1080,
-                      windowWidth: 10,
-                      windowHeight: 10,
-                    }).then(async (canvas) => {
-                      const imgData = canvas.toDataURL("image/png");
-                      doc.addImage(imgData, "png", 20, 20);
-                      await doc.save("encomenda");
-                    });
-                  }}
-                >
-                  Imprimir
                 </button>
               </>
             )}
