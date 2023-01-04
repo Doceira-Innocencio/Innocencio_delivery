@@ -6,6 +6,19 @@ main {
   align-items: center;
   justify-content: center;
 
+  &.container {
+    position: relative;
+
+    .filialSection {
+      font-size: 2rem;
+      margin-right: 2rem;
+      margin-top: 2rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
   &.NOVO {
     background-color: var(--green-light);
   }

@@ -92,6 +92,14 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
         total: 0,
       };
       setPedidos(pedidos);
+      setRegistroEncomendaProps({
+        ...registroEncomendaProps,
+        encomenda: {
+          ...registroEncomendaProps.encomenda,
+          pedidos: pedidos,
+        },
+      });
+
       toast.dismiss();
     }
   }
@@ -176,22 +184,48 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
 
     const index = pedidos.findIndex((pedido) => !pedido.produto);
 
-    setPedidos(
-      pedidos.map((pedido, i) =>
-        index == i
-          ? {
-              item: i + 1,
-              produto: data.codigo,
-              descricao: data.descricao,
-              qtd: data.quantidade,
-              unitario: data.unitario,
-              total: parseFloat(data.quantidade) * parseFloat(data.unitario),
-            }
-          : {
-              ...pedido,
-            }
-      )
-    );
+    setTimeout(() => {
+      setPedidos(
+        pedidos.map((pedido, i) =>
+          index == i
+            ? {
+                item: i + 1,
+                produto: data.codigo,
+                descricao: data.descricao,
+                qtd: data.quantidade,
+                unitario: data.unitario,
+                total: parseFloat(data.quantidade) * parseFloat(data.unitario),
+              }
+            : {
+                ...pedido,
+              }
+        )
+      );
+    }, 100);
+
+    setTimeout(() => {
+      setRegistroEncomendaProps({
+        ...registroEncomendaProps,
+        encomenda: {
+          ...registroEncomendaProps.encomenda,
+          pedidos: pedidos.map((pedido, i) =>
+            index == i
+              ? {
+                  item: i + 1,
+                  produto: data.codigo,
+                  descricao: data.descricao,
+                  qtd: data.quantidade,
+                  unitario: data.unitario,
+                  total:
+                    parseFloat(data.quantidade) * parseFloat(data.unitario),
+                }
+              : {
+                  ...pedido,
+                }
+          ),
+        },
+      });
+    }, 300);
 
     toast.info(`Aplicando taxa de entrega para ${distance} | ${value}`);
   }
@@ -257,6 +291,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                 entrega: sectionProps.filial,
               },
             });
+            document.getElementById("entrega").checked = false;
           }
 
           if (distance.value > 7100 && distance.value < 8000) {
@@ -434,7 +469,7 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
             className="inputData"
           >
             <h1>Dia Mês</h1>
-            <input id="dEntrega" type="text" />
+            <input id="dEntrega" autoComplete="off" type="text" />
             {(sectionProps.mode == "NOVO" || sectionProps.mode == "BUSCA") && (
               <Calendario open={openCalendar} />
             )}
@@ -878,6 +913,41 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                   <input
                     id="sinal"
                     type="number"
+                    onBlur={(e) => {
+                      setTimeout(() => {
+                        if (registroEncomendaProps.encomenda.sinal) {
+                          setRegistroEncomendaProps({
+                            ...registroEncomendaProps,
+                            encomenda: {
+                              ...registroEncomendaProps.encomenda,
+                              total: pedidos
+                                .reduce((prev, cur) => prev + cur.total, 0)
+                                .toFixed(2),
+                              resta: (
+                                parseFloat(
+                                  pedidos
+                                    .reduce((prev, cur) => prev + cur.total, 0)
+                                    .toFixed(2)
+                                ) - parseFloat(e.target.value)
+                              ).toFixed(2),
+                            },
+                          });
+                        } else {
+                          setRegistroEncomendaProps({
+                            ...registroEncomendaProps,
+                            encomenda: {
+                              ...registroEncomendaProps.encomenda,
+                              total: pedidos
+                                .reduce((prev, cur) => prev + cur.total, 0)
+                                .toFixed(2),
+                              resta: pedidos
+                                .reduce((prev, cur) => prev + cur.total, 0)
+                                .toFixed(2),
+                            },
+                          });
+                        }
+                      }, 100);
+                    }}
                     onKeyDown={(e) => {
                       if (e.key == "Enter" || e.key == "Tab") {
                         e.preventDefault();
@@ -888,7 +958,8 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
                       setRegistroEncomendaProps({
                         ...registroEncomendaProps,
                         encomenda: {
-                          sinal: e.target.value,
+                          ...registroEncomendaProps.encomenda,
+                          sinal: parseFloat(e.target.value),
                         },
                       });
                     }}
@@ -899,7 +970,11 @@ export default function FichaEncomenda({ reiniciar }: FichaEncomendaProps) {
               <tr>
                 <th>Resta</th>
                 <td>
-                  <input disabled type="number" value="0.00" />
+                  <input
+                    disabled
+                    type="number"
+                    value={registroEncomendaProps.encomenda.resta}
+                  />
                 </td>
               </tr>
             </table>

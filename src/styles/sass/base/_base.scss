@@ -24,3 +24,25 @@ html {
   background-color: black;
   border-radius: 30px;
 }
+
+@media print {
+  body {
+    background-color: green;
+    background-image: none;
+    color: orange;
+  }
+  #ad {
+    display: none;
+  }
+  #leftbar {
+    display: none;
+  }
+  #contentarea {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

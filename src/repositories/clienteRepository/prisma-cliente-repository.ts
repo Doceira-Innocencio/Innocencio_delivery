@@ -52,7 +52,7 @@ ORDER BY CAST(ZR_CODIGO AS int) DESC
 	VALUES
 	(
 		'${data.ZR_FILIAL}',
-		'${ZR_CODIGO + 1}',
+		'${parseInt(ZR_CODIGO) + 1}',
 		'${data.ZR_LOJA}',
 		'${data.ZR_NOME}',
 		'${data.ZR_END1}',

@@ -63,6 +63,8 @@ export default function Home() {
     window.onbeforeunload = function (e) {};
   }
 
+  function handleChangeFilial() {}
+
   async function handleSubmitEncomenda() {
     try {
       toast.loading("Registrando Encomenda !");
@@ -117,7 +119,6 @@ export default function Home() {
         await api.post("/api/encomendas/encomenda/", {
           filial: sectionProps.filial,
           loja: sectionProps.filial,
-          talao: "010",
           codigo: registroEncomendaProps.cadastroContext.codigoEncomenda,
           dEntrega: registroEncomendaProps.encomenda.dEntrega
             .toLocaleDateString("en-GB")
@@ -183,6 +184,7 @@ export default function Home() {
       restartForm();
       setSectionMode("NOVO");
     } catch (err) {
+      console.log(err);
       toast.dismiss();
     }
   }
@@ -258,7 +260,7 @@ export default function Home() {
           new Promise(async (resolve, reject) => {
             try {
               await api.put(
-                `/api/encomendas/codigo/${sectionProps.filial}/release/${numero}`
+                `/api/encomendas/codigo/${sectionProps.filial}/release/${codigo}`
               );
               resolve("ok");
             } catch (err) {
@@ -274,7 +276,14 @@ export default function Home() {
 
   return (
     <>
-      <main className={`${sectionProps.mode}`}>
+      <main className={`container ${sectionProps.mode}`}>
+        <div className="filialSection">
+          <span>
+            Filial: $
+            {sectionProps.filial === "01" ? "Emilio Carlos" : "Andorinha"}
+          </span>
+          <button onClick={handleChangeFilial}>Sair</button>
+        </div>
         <div className="mainContainer">
           <div
             onClick={() => {
@@ -349,6 +358,14 @@ export default function Home() {
                   )}
                 <button className="cancelar" onClick={handleCancelEncomenda}>
                   Cancelar
+                </button>
+                <button
+                  className="Imprimir"
+                  onClick={() => {
+                    printFicha();
+                  }}
+                >
+                  Imprimir
                 </button>
               </>
             )}

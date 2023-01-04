@@ -12,7 +12,6 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     filial,
     loja,
-    talao,
     codigo,
     dEntrega,
     hEntrega,
@@ -32,6 +31,11 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
     cliente,
   } = req.body;
 
+  const dataAtual = new Date();
+  const talao =
+    `${dataAtual.getFullYear()}`.slice(-5, 1) +
+    (parseInt(dataAtual.getMonth()) + 1);
+
   if (!codCliente) {
     await usuarioDb.createOne(filial, {
       ZR_BAIRRO1: cliente.bairro,
@@ -45,7 +49,6 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
       ZR_NOME: cliente.nome,
       ZR_TEL: cliente.telefone,
     });
-    const teste = new Date();
     await encomendaDb.createEncomenda(
       {
         ZM_FILIAL: filial,
@@ -65,12 +68,12 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
         ZM_RESTA: resta,
         ZM_OBS: observacao,
         ZM_FENTR: entrega,
-        ZM_DPEDID: data
+        ZM_DPEDID: dataAtual
           .toLocaleDateString("en-GB")
           .split("/")
           .reverse()
           .join(""),
-        ZM_HPEDID: `${teste.getHours()}:${teste.getMinutes()}`,
+        ZM_HPEDID: `${dataAtual.getHours()}:${dataAtual.getMinutes()}:${dataAtual.getSeconds()}`,
         ZM_VEND: balconista,
       },
       pedidos
@@ -95,12 +98,12 @@ const NewEncomenda = async (req: NextApiRequest, res: NextApiResponse) => {
         ZM_RESTA: resta,
         ZM_OBS: observacao,
         ZM_FENTR: entrega,
-        ZM_DPEDID: data
+        ZM_DPEDID: dataAtual
           .toLocaleDateString("en-GB")
           .split("/")
           .reverse()
           .join(""),
-        ZM_HPEDID: `${teste.getHours()}:${teste.getMinutes()}`,
+        ZM_HPEDID: `${dataAtual.getHours()}:${dataAtual.getMinutes()}:${dataAtual.getSeconds()}`,
         ZM_VEND: balconista,
       },
       pedidos
